@@ -16,18 +16,18 @@ Game.prototype.play = function () {
   var counter = 0;
   var msTime = null;
 
-  this.attac();
+  this.attack();
   this.board.showTime(counter++);
 
   var time = setInterval(function () {
     this.board.showTime(counter++);
 
     if( (counter % 10) == 0) {
-      this.attac();
+      this.attack();
     }
 
     if (counter > 90) {
-      this.attac();
+      this.attack();
       clearInterval(time);
     }
 
@@ -35,20 +35,20 @@ Game.prototype.play = function () {
 
 }
 
-Game.prototype.attac = function () {
-  var homeAttacPower = Game.randomize(this.homeTeam.level + this.homeFactor);
-  var awayAttacPower = Game.randomize(this.awayTeam.level);
+Game.prototype.attack = function () {
+  var homeAttackPower = Game.randomize(this.homeTeam.level + this.homeFactor);
+  var awayAttackPower = Game.randomize(this.awayTeam.level);
 
-  /* Home Team attac */
-  if ( homeAttacPower > awayAttacPower) {    
-    if( homeAttacPower > Game.randomize(this.awayTeam.level, 2) ){
+  /* Home Team attack */
+  if ( homeAttackPower > awayAttackPower) {    
+    if( homeAttackPower > Game.randomize(this.awayTeam.level, 2) ){
       this.scoreGoal(0);
     }
   }
 
-  /* Away Team attac */
-  if (homeAttacPower < awayAttacPower) {    
-    if( awayAttacPower > Game.randomize(this.homeTeam.level + this.homeFactor, 2) ){
+  /* Away Team attack */
+  if (homeAttackPower < awayAttackPower) {    
+    if( awayAttackPower > Game.randomize(this.homeTeam.level + this.homeFactor, 2) ){
       this.scoreGoal(1);
     }
   }
