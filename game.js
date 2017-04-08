@@ -36,32 +36,39 @@ Game.prototype.play = function () {
 }
 
 Game.prototype.attack = function () {
-  var homeAttackPower = Game.randomize(this.homeTeam.level + this.homeFactor);
-  var awayAttackPower = Game.randomize(this.awayTeam.level);
+  var homeAttackPower = this.randomize('home');
+  var awayAttackPower = this.randomize('away');
+  var homeDefencePower = this.randomize('home') * 2;
+  var awayDefencePower = this.randomize('away') * 2;
 
   /* Home Team attack */
-  if ( homeAttackPower > awayAttackPower) {    
-    if( homeAttackPower > Game.randomize(this.awayTeam.level, 2) ){
-      this.scoreGoal(0);
+  if ( homeAttackPower > awayAttackPower ) {
+    console.log('home team attac');
+
+    if ( homeAttackPower > awayDefencePower ) {
+      this.scoreGoal('home');
     }
   }
 
   /* Away Team attack */
-  if (homeAttackPower < awayAttackPower) {    
-    if( awayAttackPower > Game.randomize(this.homeTeam.level + this.homeFactor, 2) ){
-      this.scoreGoal(1);
+  if ( awayAttackPower > homeAttackPower ) {
+    console.log('away team attac');
+    
+    if ( awayAttackPower > homeDefencePower ) {
+      this.scoreGoal('away');
     }
   }
 
 }
 
 Game.prototype.scoreGoal = function (side) {
-  this.score[side]++;
+  var index = ( side == 'home' ) ? 0 : 1;
+  this.score[index]++;
   this.board.showScore(this.score);
 }
 
-Game.randomize = function (level, factor) {
-  factor = factor || 1;
-  return Math.round( (level * 0.5) + (Math.random() * 100) ) * factor;
+Game.prototype.randomize = function (side) {
+  var level = ( side == 'home' ) ? ( this.homeTeam.level + this.homeFactor ) : this.awayTeam.level;
+  return Math.round( (level * 0.5) + (Math.random() * 100) );
 }
 
