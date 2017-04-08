@@ -38,8 +38,8 @@ Game.prototype.play = function () {
 Game.prototype.attack = function () {
   var homeAttackPower = this.randomize('home');
   var awayAttackPower = this.randomize('away');
-  var homeDefencePower = this.randomize('home') * 2;
-  var awayDefencePower = this.randomize('away') * 2;
+  var homeDefencePower = this.randomize('home');
+  var awayDefencePower = this.randomize('away');
 
   /* Home Team attack */
   if ( homeAttackPower > awayAttackPower ) {
@@ -53,7 +53,7 @@ Game.prototype.attack = function () {
   /* Away Team attack */
   if ( awayAttackPower > homeAttackPower ) {
     console.log('away team attac');
-    
+
     if ( awayAttackPower > homeDefencePower ) {
       this.scoreGoal('away');
     }
