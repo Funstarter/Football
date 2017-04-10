@@ -2,6 +2,7 @@ var Board = function (homeTeam, awayTeam) {
   this.board = document.querySelector('#game-board');
   this.homeTeam = homeTeam;
   this.awayTeam = awayTeam;
+  this.render();
 }
 
 Board.prototype.render = function () {

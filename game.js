@@ -1,13 +1,30 @@
 'use strict';
 
+var publisher = {
+  subscribers: [],
+  subscribe: function (fn) {
+    this.subscribers.push(fn);
+  },
+  unsubscribe: function (fn) {
+    this.subscribers = this.subscribers.filter(function (item, i, array) {
+      return item !== fn;
+    });
+  },
+  publish: function (arg) {
+    this.subscribers.forEach(function (item) {
+      item(arg);
+    });
+  }
+}
+
 var Game = function (homeTeam, awayTeam) {
   this.homeTeam = homeTeam;
   this.awayTeam = awayTeam;
   this.board = new Board(homeTeam, awayTeam);
-  this.board.render();
+  //this.publish('init');
+  //this.board.render();
   this.time = 10;
   this.homeFactor = 10;
-
   this.score = [0, 0];
 }
 
@@ -38,8 +55,8 @@ Game.prototype.play = function () {
 Game.prototype.attack = function () {
   var homeAttackPower = this.randomize('home');
   var awayAttackPower = this.randomize('away');
-  var homeDefencePower = this.randomize('home');
-  var awayDefencePower = this.randomize('away');
+  var homeDefencePower = this.randomize('home') * 2;
+  var awayDefencePower = this.randomize('away') * 2;
 
   /* Home Team attack */
   if ( homeAttackPower > awayAttackPower ) {
@@ -64,7 +81,8 @@ Game.prototype.attack = function () {
 Game.prototype.scoreGoal = function (side) {
   var index = ( side == 'home' ) ? 0 : 1;
   this.score[index]++;
-  this.board.showScore(this.score);
+  this.publish(this.score);
+  //this.board.showScore(this.score);
 }
 
 Game.prototype.randomize = function (side) {
@@ -72,3 +90,4 @@ Game.prototype.randomize = function (side) {
   return Math.round( (level * 0.5) + (Math.random() * 100) );
 }
 
+Game.prototype = Object.assign(Game.prototype, publisher);

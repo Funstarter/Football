@@ -1,4 +1,8 @@
-var arsenal = new Team('Arsenal', 60);
-var mc = new Team('MC', 90);
-var firstGame = new Game(arsenal, mc);
+var homeTeam = new Team('Arsenal', 60);
+var awayTeam = new Team('MC', 90);
+
+var gameBoard = new Board (homeTeam, awayTeam);
+var firstGame = new Game(homeTeam, awayTeam);
+
+firstGame.subscribe(gameBoard.showScore);
 firstGame.play();
