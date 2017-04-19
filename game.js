@@ -1,28 +1,6 @@
-'use strict';
-
-var publisher = {
-  subscribers: [],
-  subscribe: function (fn) {
-    this.subscribers.push(fn);
-  },
-  unsubscribe: function (fn) {
-    this.subscribers = this.subscribers.filter(function (item, i, array) {
-      return item !== fn;
-    });
-  },
-  publish: function (arg) {
-    this.subscribers.forEach(function (item) {
-      item(arg);
-    });
-  }
-}
-
 var Game = function (homeTeam, awayTeam) {
   this.homeTeam = homeTeam;
   this.awayTeam = awayTeam;
-  this.board = new Board(homeTeam, awayTeam);
-  //this.publish('init');
-  //this.board.render();
   this.time = 10;
   this.homeFactor = 10;
   this.score = [0, 0];
@@ -34,10 +12,10 @@ Game.prototype.play = function () {
   var msTime = null;
 
   this.attack();
-  this.board.showTime(counter++);
+  this.publish('showTime', counter++);
 
   var time = setInterval(function () {
-    this.board.showTime(counter++);
+    this.publish('showTime', counter++);
 
     if( (counter % 10) == 0) {
       this.attack();
@@ -61,7 +39,6 @@ Game.prototype.attack = function () {
   /* Home Team attack */
   if ( homeAttackPower > awayAttackPower ) {
     console.log('home team attac');
-
     if ( homeAttackPower > awayDefencePower ) {
       this.scoreGoal('home');
     }
@@ -70,7 +47,6 @@ Game.prototype.attack = function () {
   /* Away Team attack */
   if ( awayAttackPower > homeAttackPower ) {
     console.log('away team attac');
-
     if ( awayAttackPower > homeDefencePower ) {
       this.scoreGoal('away');
     }
@@ -81,8 +57,7 @@ Game.prototype.attack = function () {
 Game.prototype.scoreGoal = function (side) {
   var index = ( side == 'home' ) ? 0 : 1;
   this.score[index]++;
-  this.publish(this.score);
-  //this.board.showScore(this.score);
+  this.publish('scoreGoal', this.score);
 }
 
 Game.prototype.randomize = function (side) {
@@ -91,3 +66,13 @@ Game.prototype.randomize = function (side) {
 }
 
 Game.prototype = Object.assign(Game.prototype, publisher);
+function makePublisher(ob) {
+  for (item in publisher) {
+    if (publisher.hasOwnProperty(item) && typeof publisher[item] != 'object') {
+      ob[item] = publisher[item];
+    }
+    ob.subscribers = {
+      'any': []
+    };
+  }
+}
