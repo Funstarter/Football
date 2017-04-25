@@ -5,6 +5,7 @@ var Game = function (homeTeam, awayTeam) {
   this.homeFactor = 10;
   this.score = [0, 0];
 }
+makePublisher(Game.prototype);
 
 Game.prototype.play = function () {
 
@@ -65,14 +66,3 @@ Game.prototype.randomize = function (side) {
   return Math.round( (level * 0.5) + (Math.random() * 100) );
 }
 
-Game.prototype = Object.assign(Game.prototype, publisher);
-function makePublisher(ob) {
-  for (item in publisher) {
-    if (publisher.hasOwnProperty(item) && typeof publisher[item] != 'object') {
-      ob[item] = publisher[item];
-    }
-    ob.subscribers = {
-      'any': []
-    };
-  }
-}

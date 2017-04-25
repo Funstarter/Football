@@ -6,13 +6,34 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+  <table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Game</th>
+        <th>Control</th>
+        <th>Result</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-game="1">
+        <td>1</td>
+        <td>Arsenal - MC</td>
+        <td><button type="button" data-game-control="play">Play</button></td>
+        <td data-game-result> - </td>
+      </tr>
+    </tbody>
+    <tfoot></tfoot>
+  </table>
   
   <ul id="game-board">
-    <li id="homeTeamName"></li>
+    <li id="homeTeamName">Home team</li>
     <li id="score">0:0</li>
-    <li id="awayTeam"></li>
+    <li id="awayTeam">Away team</li>
   </ul>
   <div class="timer"></div>
+  <div class="summary">Summary</div>
   
   <script src="publisher.js"></script>
   <script src="game.js"></script>
