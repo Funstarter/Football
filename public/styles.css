@@ -10,3 +10,12 @@ body {
   @media (min-width: 720px) {
     body {
       overflow-x: visible; } }
+
+.containter {
+  max-width: 100%;
+  margin: auto; }
+
+.row {
+  flex-direction: row; }
+  .row--reverse {
+    flex-direction: row-reverse; }
