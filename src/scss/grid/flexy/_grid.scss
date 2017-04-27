@@ -1,0 +1,12 @@
+.containter {
+  max-width: $container-width;
+  margin: auto;
+}
+
+.row {
+  flex-direction: row;
+
+  &--reverse {
+    flex-direction: row-reverse;
+  }
+}
