@@ -17,3 +17,7 @@ Board.prototype.showScore = function (score) {
 Board.prototype.showTime = function (time) {
   document.querySelector('.timer').innerHTML = time;
 }
+
+Board.prototype.showSummary = function (message) {
+  document.querySelector('.summary').insertAdjacentHTML('beforeEnd', '<p>' + message + '</p>');
+}

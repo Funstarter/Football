@@ -10,5 +10,6 @@ document.querySelector('[data-game-control]').addEventListener('click', function
   var game = new Game(games[0].homeTeam, games[0].awayTeam);
   game.subscribe('scoreGoal', gameBoard.showScore);
   game.subscribe('showTime', gameBoard.showTime);
+  game.subscribe('message', gameBoard.showSummary);
   game.play();
 });

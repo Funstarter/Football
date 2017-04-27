@@ -10,7 +10,6 @@ makePublisher(Game.prototype);
 Game.prototype.play = function () {
 
   var counter = 0;
-  var msTime = null;
 
   this.attack();
   this.publish('showTime', counter++);
@@ -19,11 +18,11 @@ Game.prototype.play = function () {
     this.publish('showTime', counter++);
 
     if( (counter % 10) == 0) {
-      this.attack();
+      this.attack(counter);
     }
 
     if (counter > 90) {
-      this.attack();
+      this.attack(counter);
       clearInterval(time);
     }
 
@@ -31,7 +30,7 @@ Game.prototype.play = function () {
 
 }
 
-Game.prototype.attack = function () {
+Game.prototype.attack = function (time) {
   var homeAttackPower = this.randomize('home');
   var awayAttackPower = this.randomize('away');
   var homeDefencePower = this.randomize('home') * 2;
@@ -39,16 +38,20 @@ Game.prototype.attack = function () {
 
   /* Home Team attack */
   if ( homeAttackPower > awayAttackPower ) {
-    console.log('home team attac');
+    this.publish('message', 'home team attac');
+
     if ( homeAttackPower > awayDefencePower ) {
+      this.publish('message', 'home team score!!!');
       this.scoreGoal('home');
     }
   }
 
   /* Away Team attack */
   if ( awayAttackPower > homeAttackPower ) {
-    console.log('away team attac');
+    this.publish('message', 'away team attac');
+    
     if ( awayAttackPower > homeDefencePower ) {
+      this.publish('message', 'away team score!!!')
       this.scoreGoal('away');
     }
   }
