@@ -13,10 +13,22 @@ document.querySelector('[data-table]').addEventListener('click', function (e) {
 
   /* Delegate handler */
   var control = e.target;
-  while (!control.hasAttribute('data-game')) {
+  while (!control.hasAttribute('data-game-control')) {
+    control = control.parentNode;
+    if(control === e.currentTarget) {
+        return;
+    }
+  }
+
+  /* Get Game id */
+  var gameId;
+  while (control !== e.currentTarget) {
+    if (control.hasAttribute('data-game')) {
+      gameId = parseInt(control.getAttribute('data-game'));
+      break;
+    }
     control = control.parentNode;
   }
-  var gameId = parseInt(control.getAttribute('data-game'));
 
   var gameBoard = new Board (games[gameId].homeTeam, games[gameId].awayTeam);
   var game = new Game(games[gameId].homeTeam, games[gameId].awayTeam);
