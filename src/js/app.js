@@ -11,17 +11,14 @@ var games = [
 
 document.querySelector('[data-table]').addEventListener('click', function (e) {
 
-    /* Delegate handler */
-    var control = e.target;
-    while (!control.hasAttribute('data-game-control')) {
-        control = control.parentNode;
-        if (control === e.currentTarget) {
-            return;
-        }
+    /* Delegate handler. If element not found finish handling */
+    if(!helpers.delegate('data-game-control', e)) {
+        return;
     }
 
     /* Get Game id */
     var gameId;
+    var control = e.target;
     while (control !== e.currentTarget) {
         if (control.hasAttribute('data-game')) {
             gameId = parseInt(control.getAttribute('data-game'));
