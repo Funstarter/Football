@@ -18,8 +18,7 @@ document.querySelector('[data-table]').addEventListener('click', function (e) {
   }
   var game = parseInt(control.getAttribute('data-game'));
 
-  var gameBoard = Board.init(games[game].homeTeam, games[game].awayTeam);
-  gameBoard.render();
+  var gameBoard = new Board (games[game].homeTeam, games[game].awayTeam);
   var game = new Game(games[game].homeTeam, games[game].awayTeam);
   game.subscribe('scoreGoal', gameBoard.showScore);
   game.subscribe('showTime', gameBoard.showTime);
