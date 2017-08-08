@@ -1,0 +1,8 @@
+@mixin generate-cols($cols) {
+  @for $col from 1 through $cols {
+    & > .col-#{$col} { 
+      max-width: $col/$cols*100%;
+      flex-basis: $col/$cols*100%;
+    }
+  }
+}
