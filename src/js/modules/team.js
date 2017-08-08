@@ -1,4 +1,4 @@
 var Team = function (name, level) {
-  this.name = name;
-  this.level = level;
-}
+    this.name = name;
+    this.level = level;
+};

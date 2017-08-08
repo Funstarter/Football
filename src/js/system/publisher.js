@@ -1,35 +1,35 @@
 'use strict';
 
 var publisher = {
-  subscribers: {
-    'any': []
-  },
-  subscribe: function (type, fn) {
-    if(!this.subscribers[type]){
-      this.subscribers[type] = [];
+    subscribers: {
+        'any': []
+    },
+    subscribe: function (type, fn) {
+        if (!this.subscribers[type]) {
+            this.subscribers[type] = [];
+        }
+        this.subscribers[type].push(fn);
+    },
+    unsubscribe: function (type, fn) {
+        this.subscribers[type] = this.subscribers[type].filter(function (item) {
+            return item !== fn;
+        });
+    },
+    publish: function (type, arg) {
+        this.subscribers[type].forEach(function (item) {
+            item(arg);
+        });
     }
-    this.subscribers[type].push(fn);
-  },
-  unsubscribe: function (type, fn) {
-    this.subscribers[type] = this.subscribers[type].filter(function (item, i) {
-      return item !== fn;
-    });
-  },
-  publish: function (type, arg) {
-    this.subscribers[type].forEach(function (item) {
-      item(arg);
-    });
-  }
-}
+};
 
 
 function makePublisher(ob) {
-  for (var item in publisher) {
-    if (publisher.hasOwnProperty(item) && typeof publisher[item] != 'object') {
-      ob[item] = publisher[item];
+    for (var item in publisher) {
+        if (publisher.hasOwnProperty(item) && typeof publisher[item] != 'object') {
+            ob[item] = publisher[item];
+        }
+        ob.subscribers = {
+            'any': []
+        };
     }
-    ob.subscribers = {
-      'any': []
-    };
-  }
 }
