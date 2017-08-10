@@ -38,6 +38,11 @@ document.querySelector('[data-table]').addEventListener('click', function (e) {
         Array.prototype.forEach.call(document.querySelectorAll('[data-game-control]'), function (item) {
             item.removeAttribute('disabled');
         });
+        game.unsubscribe('scoreGoal', gameBoard.showScore);
+        game.unsubscribe('showTime', gameBoard.showTime);
+        game.unsubscribe('message', gameBoard.showSummary);
         console.log('finish');
     });
+
+    console.log(game.subscribers);
 });
