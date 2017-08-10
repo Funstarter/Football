@@ -1,24 +1,13 @@
-var games = [
-    {
-        homeTeam: new Team('Arsenal', 60),
-        awayTeam: new Team('MC', 90)
-    },
-    {
-        homeTeam: new Team('Chelsea', 75),
-        awayTeam: new Team('MU', 80)
-    }
-];
-
 var isPlaying;
 
 document.querySelector('[data-table]').addEventListener('click', function (e) {
 
     /* Delegate handler. If element not found finish handling */
-    if(!helpers.delegate('data-game-control', e)) {
+    if (!helpers.delegate('data-game-control', e)) {
         return;
     }
 
-    if(isPlaying === true) {
+    if (isPlaying === true) {
         return;
     }
 
