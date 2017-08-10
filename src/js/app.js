@@ -7,11 +7,10 @@ document.querySelector('[data-table]').addEventListener('click', function (e) {
         return;
     }
 
+    /* Prevent starting new game before current is finished */
     if (isPlaying === true) {
         return;
     }
-
-    /* Prevent starting new game before current is finished */
     isPlaying = true;
     Array.prototype.forEach.call(document.querySelectorAll('[data-game-control]'), function (item) {
         item.setAttribute('disabled', 'disabled');
@@ -28,6 +27,7 @@ document.querySelector('[data-table]').addEventListener('click', function (e) {
         control = control.parentNode;
     }
 
+    /* Starting new game */
     var gameBoard = new Board(games[gameId].homeTeam, games[gameId].awayTeam);
     var game = new Game(games[gameId].homeTeam, games[gameId].awayTeam);
     game.subscribe('scoreGoal', gameBoard.showScore);
@@ -36,7 +36,7 @@ document.querySelector('[data-table]').addEventListener('click', function (e) {
     game.play(function () {
         isPlaying = false;
         Array.prototype.forEach.call(document.querySelectorAll('[data-game-control]'), function (item) {
-            item.setAttribute('disabled', 'disabled');
+            item.removeAttribute('disabled');
         });
         console.log('finish');
     });
