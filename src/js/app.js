@@ -9,12 +9,24 @@ var games = [
     }
 ];
 
+var isPlaying;
+
 document.querySelector('[data-table]').addEventListener('click', function (e) {
 
     /* Delegate handler. If element not found finish handling */
     if(!helpers.delegate('data-game-control', e)) {
         return;
     }
+
+    if(isPlaying === true) {
+        return;
+    }
+
+    /* Prevent starting new game before current is finished */
+    isPlaying = true;
+    Array.prototype.forEach.call(document.querySelectorAll('[data-game-control]'), function (item) {
+        item.setAttribute('disabled', 'disabled');
+    });
 
     /* Get Game id */
     var gameId;
@@ -32,5 +44,11 @@ document.querySelector('[data-table]').addEventListener('click', function (e) {
     game.subscribe('scoreGoal', gameBoard.showScore);
     game.subscribe('showTime', gameBoard.showTime);
     game.subscribe('message', gameBoard.showSummary);
-    game.play();
+    game.play(function () {
+        isPlaying = false;
+        Array.prototype.forEach.call(document.querySelectorAll('[data-game-control]'), function (item) {
+            item.setAttribute('disabled', 'disabled');
+        });
+        console.log('finish');
+    });
 });

@@ -1,13 +1,12 @@
 var Game = function (homeTeam, awayTeam) {
     this.homeTeam = homeTeam;
     this.awayTeam = awayTeam;
-    this.time = 10;
     this.homeFactor = 10;
     this.score = [0, 0];
 };
 makePublisher(Game.prototype);
 
-Game.prototype.play = function () {
+Game.prototype.play = function (callback) {
 
     var counter = 0;
 
@@ -24,13 +23,14 @@ Game.prototype.play = function () {
         if (counter > 90) {
             this.attack(counter);
             clearInterval(time);
+            callback();
         }
 
     }.bind(this), 100);
 
 };
 
-Game.prototype.attack = function (time) {
+Game.prototype.attack = function () {
     var homeAttackPower = this.randomize('home');
     var awayAttackPower = this.randomize('away');
     var homeDefencePower = this.randomize('home') * 2;
@@ -51,7 +51,7 @@ Game.prototype.attack = function (time) {
         this.publish('message', 'away team attac');
 
         if (awayAttackPower > homeDefencePower) {
-            this.publish('message', 'away team score!!!')
+            this.publish('message', 'away team score!!!');
             this.scoreGoal('away');
         }
     }
