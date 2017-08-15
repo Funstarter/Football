@@ -1,10 +1,14 @@
 var games = [
     {
-        homeTeam: {name: 'Arsenal', level: 60},
-        awayTeam: {name: 'MC', level: 90}
+        homeTeam: teams[0],
+        awayTeam: teams[1]
     },
     {
-        homeTeam: {name: 'Chelsea', level: 75},
-        awayTeam: {name: 'MU', level: 80}
+        homeTeam: teams[2],
+        awayTeam: teams[3]
+    },
+    {
+        homeTeam: teams[1],
+        awayTeam: teams[3]
     }
 ];
