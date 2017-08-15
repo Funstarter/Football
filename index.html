@@ -9,8 +9,19 @@
     <meta name="description" content="Football game">
 
     <link rel="stylesheet" href="public/styles.css">
+
+    <script id="template-list" type="text/template-list">
+        <li>
+            Item with id {{id}}, and name is {{name}}
+        </li>
+    </script>
+
 </head>
 <body>
+
+<ul id="list">
+
+</ul>
 
 <table border="1" cellpadding="5" cellspacing="0" data-table>
     <thead>
@@ -53,6 +64,7 @@
     <div id="summary"></div>
 </div>
 
+<script src="src/js/data/list.js"></script>
 <script src="src/js/data/teams.js"></script>
 <script src="src/js/data/games.js"></script>
 <script src="src/js/system/helpers.js"></script>
