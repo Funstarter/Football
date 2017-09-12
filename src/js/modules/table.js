@@ -1,5 +1,2 @@
-templateEngine({
-    template: document.getElementById('template-list'),
-    data: dataList,
-    placeholder: document.getElementById('list')
-});
+templateEngine(document.getElementById('list'), dataList);
+templateEngine(document.getElementById('list2'), teams);
