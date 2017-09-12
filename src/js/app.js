@@ -1,6 +1,6 @@
 var isPlaying;
 
-document.querySelector('[data-table]').addEventListener('click', function (e) {
+document.addEventListener('click', function (e) {
 
     /* Delegate handler. If element not found finish handling */
     if (!helpers.delegate('data-game-control', e)) {
