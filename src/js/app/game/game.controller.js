@@ -44,5 +44,4 @@ document.addEventListener('click', function (e) {
         console.log('finish');
     });
 
-    console.log(game.subscribers);
 });
