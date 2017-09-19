@@ -1,25 +1,28 @@
-.containter {
+.container {
   display: block;
   max-width: $container-width;
   margin: auto;
+  padding-left: $gutter / 2;
+  padding-right: $gutter / 2;
 }
 
 .row {
   display: flex;
   flex-wrap: wrap;
-  margin-right: $gutter;
-  margin-left: $gutter;
-  flex-direction: row;
+  margin: 0 (-$gutter/2);
+  flex-direction: row;  
 
   &--reverse {
     flex-direction: row-reverse;
   }
 
   & > * {
+    box-sizing: border-box;
     flex-grow: 0;
     flex-shrink: 0;
     padding-left: $gutter / 2;
     padding-right: $gutter / 2;
+    border: 1px solid red;
   }
 
   @include generate-cols(12);

@@ -4,5 +4,8 @@
       max-width: $col/$cols*100%;
       flex-basis: $col/$cols*100%;
     }
+    & > .col-offset-#{$col} {
+      margin-left: $col/$cols*100%;
+    }
   }
 }
