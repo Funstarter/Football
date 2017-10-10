@@ -1,11 +1,27 @@
 @mixin generate-cols($cols) {
-  @for $col from 1 through $cols {
-    & > .col-#{$col} { 
-      max-width: $col/$cols*100%;
-      flex-basis: $col/$cols*100%;
-    }
-    & > .col-offset-#{$col} {
-      margin-left: $col/$cols*100%;
+  @each $media, $val in $breakpoints {
+    @media(min-width: $val) {
+
+      @for $col from 1 through $cols {
+        & > .col-#{$media}-#{$col} {
+          max-width: $col/$cols*100%;
+          flex-basis: $col/$cols*100%;
+        }
+        & > .col-offset-#{$media}-#{$col} {
+          margin-left: $col/$cols*100%;
+        }
+      }
+      & > .col-offset-#{$media}-0 {
+        margin-left: 0;
+      }
+      
+      & > [class^="col-hidden"] {
+        display: block;
+      }
+      & > .col-hidden-#{$media} {
+        display: none;
+      }
+
     }
   }
 }
