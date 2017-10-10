@@ -2,7 +2,7 @@ var isPlaying;
 
 function renderGames(games, selector) {
     var wrapper = document.querySelector(selector);
-    var template = document.querySelector('#template-game').innerHTML;
+    var template = wrapper.innerHTML;
     var gamesTags = '';
 
     games.forEach(function(item, index){

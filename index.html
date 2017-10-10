@@ -8,21 +8,6 @@
     <meta name="description" content="Football game">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
     <link rel="stylesheet" href="public/styles.css">
-
-    <script type="template-game" id="template-game">
-        <li class="list-group-item game" data-game="{id}">
-            <div class="game__id">{id}</div>
-            <div class="game__teams">
-                <span class="game__team">{homeTeam}</span>
-                <span class="game__team">{awayTeam}</span>
-            </div>
-            <div class="game__control">
-                <button class="btn btn-success btn-sm" type="button" data-game-control="play">
-                    <span>Play</span></button>
-            </div>
-            <div class="game__result" data-game-result>-:-</div>
-        </li>
-    </script>
 </head>
 <body>
 
@@ -36,7 +21,18 @@
                     <p class="card-text">List of today's matches</p>
                 </div>
                 <ul class="list-group list-group-flush" data-match-center-games>
-
+                    <li class="list-group-item game" data-game="{id}">
+                        <div class="game__id">{id}</div>
+                        <div class="game__teams">
+                            <span class="game__team">{homeTeam}</span>
+                            <span class="game__team">{awayTeam}</span>
+                        </div>
+                        <div class="game__control">
+                            <button class="btn btn-success btn-sm" type="button" data-game-control="play">
+                                <span>Play</span></button>
+                        </div>
+                        <div class="game__result" data-game-result>-:-</div>
+                    </li>
                 </ul>
             </div>
 
