@@ -4,7 +4,7 @@ const sass = require('gulp-sass');
 /* Config */
 paths = {
     sassSrcFile: 'src/scss/styles.scss',
-    sassSrcFolder: 'src/scss/**/*.scss',
+    sassSrcFolder: 'src/**/*.scss',
     sassDestFolder: 'public'
 }
 

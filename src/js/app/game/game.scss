@@ -1,0 +1,24 @@
+.game {
+  display: flex;
+  align-items: center;
+
+  &__id {
+    padding-right: 10px;
+  }
+
+  &__teams{
+    padding-right: 10px;
+  }
+
+  &__team{
+
+  }
+
+  &__control{
+    padding-right: 10px;
+  }
+
+  &__result {
+
+  }
+}

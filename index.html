@@ -6,49 +6,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Football</title>
     <meta name="description" content="Football game">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
     <link rel="stylesheet" href="public/styles.css">
 </head>
 <body>
 
-<table border="1" cellpadding="5" cellspacing="0">
-    <thead>
-    <tr>
-        <th>#</th>
-        <th>Game</th>
-        <th>Control</th>
-        <th>Result</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr data-game="0">
-        <td>1</td>
-        <td><span data-team="0">Arsenal</span> - <span data-team="1">MC</span></td>
-        <td>
-            <button type="button" data-game-control="play"><span>Play</span></button>
-        </td>
-        <td data-game-result> -</td>
-    </tr>
-    <tr data-game="1">
-        <td>2</td>
-        <td><span data-team="2">Chelsea</span> - <span data-team="3">MU</span></td>
-        <td>
-            <button type="button" data-game-control="play">Play</button>
-        </td>
-        <td data-game-result> -</td>
-    </tr>
-    </tbody>
-    <tfoot></tfoot>
-</table>
+<div class="container">
 
-<div id="game-board">
-    <ul>
-        <li id="homeTeamName">Home team</li>
-        <li id="score">0:0</li>
-        <li id="awayTeam">Away team</li>
-    </ul>
-    <div id="timer">0</div>
-    <h3>Summary</h3>
-    <div id="summary"></div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Match Center</h4>
+                    <p class="card-text">List of today's matches</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="game" data-game="0">
+                            <div class="game__id">1</div>
+                            <div class="game__teams">
+                                <span class="game__team" data-team="0">Arsenal</span> - <span class="game__team" data-team="1">MC</span>
+                            </div>
+                            <div class="game__control">
+                                <button class="btn btn-success btn-sm" type="button" data-game-control="play"><span>Play</span></button>
+                            </div>
+                            <div class="game__result" data-game-result>-:-</div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="game" data-game="1">
+                            <div class="game__id">2</div>
+                            <div class="game__teams">
+                                <span class="game__team" data-team="2">Chelsea</span> - <span class="game__team" data-team="3">MU</span>
+                            </div>
+                            <div class="game__control">
+                                <button class="btn btn-success btn-sm" type="button" data-game-control="play"><span>Play</span></button>
+                            </div>
+                            <div class="game__result" data-game-result>-:-</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </div><!-- ./col -->
+        <div class="col-md-6">
+            <div class="card" id="game-board">
+                <div class="card-body">
+                    <h4 class="card-title">Game board</h4>
+                    <h6 class="card-subtitle mb-2 text-muted" id="timer">0</h6>
+                    <div class="card-text">
+                        <ul>
+                            <li id="homeTeamName">Home team</li>
+                            <li id="score">0:0</li>
+                            <li id="awayTeam">Away team</li>
+                        </ul>
+                        <p class="card-text" id="summary"></p>
+                    </div>
+                </div>
+            </div>
+        </div><!-- ./col -->
+    </div><!-- ./row -->
+
 </div>
 
 <!-- Data -->
