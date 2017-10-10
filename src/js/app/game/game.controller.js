@@ -1,5 +1,21 @@
 var isPlaying;
 
+function renderGames(games, selector) {
+    var wrapper = document.querySelector(selector);
+    var template = document.querySelector('#template-game').innerHTML;
+    var gamesTags = '';
+
+    games.forEach(function(item, index){
+        var result = template.replace(/{(id)}/g, index);
+        result = result.replace(/{(homeTeam)}/g, item.homeTeam.name);
+        result = result.replace(/{(awayTeam)}/g, item.awayTeam.name);
+        gamesTags += result;
+    });
+
+    document.querySelector(selector).innerHTML = gamesTags;
+}
+renderGames(games, '[data-match-center-games]');
+
 document.addEventListener('click', function (e) {
 
     /* Delegate handler. If element not found finish handling */

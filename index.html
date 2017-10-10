@@ -8,6 +8,21 @@
     <meta name="description" content="Football game">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
     <link rel="stylesheet" href="public/styles.css">
+
+    <script type="template-game" id="template-game">
+        <li class="list-group-item game" data-game="{id}">
+            <div class="game__id">{id}</div>
+            <div class="game__teams">
+                <span class="game__team">{homeTeam}</span>
+                <span class="game__team">{awayTeam}</span>
+            </div>
+            <div class="game__control">
+                <button class="btn btn-success btn-sm" type="button" data-game-control="play">
+                    <span>Play</span></button>
+            </div>
+            <div class="game__result" data-game-result>-:-</div>
+        </li>
+    </script>
 </head>
 <body>
 
@@ -20,31 +35,8 @@
                     <h4 class="card-title">Match Center</h4>
                     <p class="card-text">List of today's matches</p>
                 </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        <div class="game" data-game="0">
-                            <div class="game__id">1</div>
-                            <div class="game__teams">
-                                <span class="game__team" data-team="0">Arsenal</span> - <span class="game__team" data-team="1">MC</span>
-                            </div>
-                            <div class="game__control">
-                                <button class="btn btn-success btn-sm" type="button" data-game-control="play"><span>Play</span></button>
-                            </div>
-                            <div class="game__result" data-game-result>-:-</div>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="game" data-game="1">
-                            <div class="game__id">2</div>
-                            <div class="game__teams">
-                                <span class="game__team" data-team="2">Chelsea</span> - <span class="game__team" data-team="3">MU</span>
-                            </div>
-                            <div class="game__control">
-                                <button class="btn btn-success btn-sm" type="button" data-game-control="play"><span>Play</span></button>
-                            </div>
-                            <div class="game__result" data-game-result>-:-</div>
-                        </div>
-                    </li>
+                <ul class="list-group list-group-flush" data-match-center-games>
+
                 </ul>
             </div>
 
@@ -81,6 +73,7 @@
 
 <!-- Application -->
 <script src="src/js/app/game/game.model.js"></script>
+<script src="src/js/app/game/game.view.js"></script>
 <script src="src/js/app/game/game.controller.js"></script>
 <script src="src/js/app/board/board.model.js"></script>
 </body>

@@ -8,10 +8,17 @@
 
   &__teams{
     padding-right: 10px;
+    display: flex;
   }
 
   &__team{
-
+    &:first-child {
+      &::after {
+        content: '-';
+        display: inline-block;
+        padding: 0 5px;
+      }
+    }
   }
 
   &__control{
