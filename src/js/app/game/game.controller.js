@@ -1,20 +1,7 @@
+
+/* Initial State */
 var isPlaying;
-
-function renderGames(games, selector) {
-    var wrapper = document.querySelector(selector);
-    var template = wrapper.innerHTML;
-    var gamesTags = '';
-
-    games.forEach(function(item, index){
-        var result = template.replace(/{(id)}/g, index);
-        result = result.replace(/{(homeTeam)}/g, item.homeTeam.name);
-        result = result.replace(/{(awayTeam)}/g, item.awayTeam.name);
-        gamesTags += result;
-    });
-
-    document.querySelector(selector).innerHTML = gamesTags;
-}
-renderGames(games, '[data-match-center-games]');
+Game.renderGames(games, document.querySelector('[data-game]'));
 
 document.addEventListener('click', function (e) {
 
@@ -28,7 +15,7 @@ document.addEventListener('click', function (e) {
         return;
     }
     isPlaying = true;
-    Array.prototype.forEach.call(document.querySelectorAll('[data-game-control]'), function (item) {
+    Array.from(document.querySelectorAll('[data-game-control]'), function (item) {
         item.setAttribute('disabled', 'disabled');
     });
 
@@ -51,7 +38,7 @@ document.addEventListener('click', function (e) {
     game.subscribe('message', gameBoard.showSummary);
     game.play(function () {
         isPlaying = false;
-        Array.prototype.forEach.call(document.querySelectorAll('[data-game-control]'), function (item) {
+        Array.from(document.querySelectorAll('[data-game-control]'), function (item) {
             item.removeAttribute('disabled');
         });
         game.unsubscribe('scoreGoal', gameBoard.showScore);

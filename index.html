@@ -20,7 +20,8 @@
                     <h4 class="card-title">Match Center</h4>
                     <p class="card-text">List of today's matches</p>
                 </div>
-                <ul class="list-group list-group-flush" data-match-center-games>
+                <ul class="list-group list-group-flush">
+                    <!-- Game Component -->
                     <li class="list-group-item game" data-game="{id}">
                         <div class="game__id">{id}</div>
                         <div class="game__teams">
@@ -28,11 +29,11 @@
                             <span class="game__team">{awayTeam}</span>
                         </div>
                         <div class="game__control">
-                            <button class="btn btn-success btn-sm" type="button" data-game-control="play">
-                                <span>Play</span></button>
+                            <button class="btn btn-success btn-sm" type="button" data-game-control="play" data-attr-disabled>Play</button>
                         </div>
-                        <div class="game__result" data-game-result>-:-</div>
+                        <div class="game__result" data-game-result>{result}</div>
                     </li>
+                    <!-- /. Game Component -->
                 </ul>
             </div>
 
@@ -69,7 +70,6 @@
 
 <!-- Application -->
 <script src="src/js/app/game/game.model.js"></script>
-<script src="src/js/app/game/game.view.js"></script>
 <script src="src/js/app/game/game.controller.js"></script>
 <script src="src/js/app/board/board.model.js"></script>
 </body>

@@ -6,6 +6,10 @@ var Game = function (homeTeam, awayTeam) {
 };
 makePublisher(Game.prototype);
 
+/**
+ * Start play game
+ * @param callback
+ */
 Game.prototype.play = function (callback) {
 
     var counter = 0;
@@ -30,6 +34,9 @@ Game.prototype.play = function (callback) {
 
 };
 
+/**
+ * Team make an attack
+ */
 Game.prototype.attack = function () {
     var homeAttackPower = this.randomize('home');
     var awayAttackPower = this.randomize('away');
@@ -58,14 +65,46 @@ Game.prototype.attack = function () {
 
 };
 
+/**
+ * Team score goal while attacking
+ * @param side
+ */
 Game.prototype.scoreGoal = function (side) {
     var index = ( side == 'home' ) ? 0 : 1;
     this.score[index]++;
     this.publish('scoreGoal', this.score);
 };
 
+/**
+ * Deside which side has to attack
+ * @param side
+ * @returns {number}
+ */
 Game.prototype.randomize = function (side) {
     var level = ( side == 'home' ) ? ( this.homeTeam.level + this.homeFactor ) : this.awayTeam.level;
     return Math.round((level * 0.5) + (Math.random() * 100));
 };
 
+/**
+ * Render game list HTML
+ * @param games
+ * @param selector
+ */
+Game.renderGames = function (games, selector) {
+    var template = selector.outerHTML;
+    var finalHtml = '';
+
+    games.forEach(function(item, index){
+        var gameHtml = template.replace(/{(id)}/g, index);
+        gameHtml = gameHtml.replace(/{(homeTeam)}/g, item.homeTeam.name);
+        gameHtml = gameHtml.replace(/{(awayTeam)}/g, item.awayTeam.name);
+        gameHtml = gameHtml.replace(/{(result)}/g, (item.result.length == 0) ? '-:-' : item.result.join(':'));
+        if(item.result.length > 0){
+            gameHtml = gameHtml.replace(/(data-attr-disabled)/g, 'disabled');
+        }
+        finalHtml += gameHtml;
+    });
+
+    selector.insertAdjacentHTML('beforeBegin', finalHtml);
+    selector.parentNode.removeChild(selector);
+};
