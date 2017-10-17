@@ -31,7 +31,7 @@ document.addEventListener('click', function (e) {
     }
 
     /* Starting new game */
-    var gameBoard = new Board(games[gameId].homeTeam, games[gameId].awayTeam);
+    gameBoard.render(games[gameId].homeTeam, games[gameId].awayTeam);
     var game = new Game(games[gameId].homeTeam, games[gameId].awayTeam);
     game.subscribe('scoreGoal', gameBoard.showScore);
     game.subscribe('showTime', gameBoard.showTime);
