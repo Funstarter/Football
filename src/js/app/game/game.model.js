@@ -91,7 +91,7 @@ Game.prototype.randomize = function (side) {
  * @param selector
  */
 Game.renderGames = function (games, selector) {
-    var template = selector.outerHTML;
+    var template = selector.innerHTML;
     var finalHtml = '';
 
     games.forEach(function(item, index){
@@ -104,7 +104,8 @@ Game.renderGames = function (games, selector) {
         }
         finalHtml += gameHtml;
     });
+    selector.innerHTML = finalHtml;
 
-    selector.insertAdjacentHTML('beforeBegin', finalHtml);
-    selector.parentNode.removeChild(selector);
+    //selector.insertAdjacentHTML('beforeBegin', finalHtml);
+    //selector.parentNode.removeChild(selector);
 };

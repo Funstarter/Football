@@ -15,13 +15,16 @@
 
     <div class="row">
         <div class="col-md-6">
-            <div class="card">
+
+            <!-- Match Center -->
+            <div class="card" data-match-center>
                 <div class="card-body">
                     <h4 class="card-title">Match Center</h4>
                     <p class="card-text">List of today's matches</p>
                 </div>
-                <ul class="list-group list-group-flush">
-                    <!-- Game Component -->
+
+                <ul class="list-group list-group-flush" data-match-center-games>
+                    <!-- Game -->
                     <li class="list-group-item game" data-game="{id}">
                         <div class="game__id">{id}</div>
                         <div class="game__teams">
@@ -33,9 +36,30 @@
                         </div>
                         <div class="game__result" data-game-result>{result}</div>
                     </li>
-                    <!-- /. Game Component -->
+                    <!-- /. Game -->
                 </ul>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label for="home-team-select">Home team</label>
+                            <select class="form-control" id="home-team-select" data-match-center-teams>
+                                <option value="{team.id}">{team.name}</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="away-team-select">Away team</label>
+                            <select class="form-control" id="away-team-select" data-match-center-teams>
+                                <option value="{team.id}">{team.name}</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-12 mt-3">
+                            <button type="submit" class="btn btn-primary" data-match-center-add-team>Submit</button>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <!-- /.Match Center -->
 
         </div><!-- ./col -->
         <div class="col-md-6">
@@ -72,5 +96,6 @@
 <script src="src/js/app/game/game.model.js"></script>
 <script src="src/js/app/game/game.controller.js"></script>
 <script src="src/js/app/board/board.model.js"></script>
+<script src="src/js/app/match-center/match-center.js"></script>
 </body>
 </html>
