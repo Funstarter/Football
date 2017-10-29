@@ -84,28 +84,3 @@ Game.prototype.randomize = function (side) {
     var level = ( side == 'home' ) ? ( this.homeTeam.level + this.homeFactor ) : this.awayTeam.level;
     return Math.round((level * 0.5) + (Math.random() * 100));
 };
-
-/**
- * Render game list HTML
- * @param games
- * @param selector
- */
-Game.renderGames = function (games, selector) {
-    var template = selector.innerHTML;
-    var finalHtml = '';
-
-    games.forEach(function(item, index){
-        var gameHtml = template.replace(/{(id)}/g, index);
-        gameHtml = gameHtml.replace(/{(homeTeam)}/g, item.homeTeam.name);
-        gameHtml = gameHtml.replace(/{(awayTeam)}/g, item.awayTeam.name);
-        gameHtml = gameHtml.replace(/{(result)}/g, (item.result.length == 0) ? '-:-' : item.result.join(':'));
-        if(item.result.length > 0){
-            gameHtml = gameHtml.replace(/(data-attr-disabled)/g, 'disabled');
-        }
-        finalHtml += gameHtml;
-    });
-    selector.innerHTML = finalHtml;
-
-    //selector.insertAdjacentHTML('beforeBegin', finalHtml);
-    //selector.parentNode.removeChild(selector);
-};

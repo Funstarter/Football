@@ -1,7 +1,7 @@
 
 /* Initial State */
 var isPlaying;
-Game.renderGames(games, document.querySelector('[data-match-center-games]'));
+var games = matchCenter.games;
 
 document.addEventListener('click', function (e) {
 

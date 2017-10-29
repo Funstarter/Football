@@ -8,6 +8,23 @@
     <meta name="description" content="Football game">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
     <link rel="stylesheet" href="public/styles.css">
+
+    <script type="template/match-center-games" id="match-center-games">
+        <li class="list-group-item game" data-game="{id}">
+            <div class="game__id">{id}</div>
+            <div class="game__teams">
+                <span class="game__team">{homeTeam}</span>
+                <span class="game__team">{awayTeam}</span>
+            </div>
+            <div class="game__control">
+                <button class="btn btn-success btn-sm" type="button" data-game-control="play" data-attr-disabled>
+                    Play
+                </button>
+            </div>
+            <div class="game__result" data-game-result>{result}</div>
+        </li>
+    </script>
+
 </head>
 <body>
 
@@ -24,37 +41,25 @@
                 </div>
 
                 <ul class="list-group list-group-flush" data-match-center-games>
-                    <!-- Game -->
-                    <li class="list-group-item game" data-game="{id}">
-                        <div class="game__id">{id}</div>
-                        <div class="game__teams">
-                            <span class="game__team">{homeTeam}</span>
-                            <span class="game__team">{awayTeam}</span>
-                        </div>
-                        <div class="game__control">
-                            <button class="btn btn-success btn-sm" type="button" data-game-control="play" data-attr-disabled>Play</button>
-                        </div>
-                        <div class="game__result" data-game-result>{result}</div>
-                    </li>
-                    <!-- /. Game -->
+
                 </ul>
 
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-6">
                             <label for="home-team-select">Home team</label>
-                            <select class="form-control" id="home-team-select" data-match-center-teams>
+                            <select class="form-control" id="home-team-select" data-match-center-team="home">
                                 <option value="0">Home team</option>
                             </select>
                         </div>
                         <div class="col-sm-6">
                             <label for="away-team-select">Away team</label>
-                            <select class="form-control" id="away-team-select" data-match-center-teams>
+                            <select class="form-control" id="away-team-select" data-match-center-team="away">
                                 <option value="0">Away team</option>
                             </select>
                         </div>
                         <div class="col-sm-12 mt-3">
-                            <button type="submit" class="btn btn-primary" data-match-center-add-team>Submit</button>
+                            <button type="submit" class="btn btn-primary" data-match-center-add-game>Submit</button>
                         </div>
                     </div>
                 </div>
@@ -82,21 +87,17 @@
 
 </div>
 
-<!-- Data -->
-<script src="src/js/data/teams.js"></script>
-<script src="src/js/app/team/team.js"></script>
-
-<script src="src/js/data/games.js"></script>
-
-<!-- Libraries -->
 <script src="src/js/system/helpers.js"></script>
 <script src="src/js/system/publisher.js"></script>
 <script src="src/js/system/template-engine.js"></script>
 
+<script src="src/js/data/teams.js"></script>
+<script src="src/js/app/team/team.js"></script>
+
 <!-- Application -->
 <script src="src/js/app/game/game.model.js"></script>
+<script src="src/js/app/match-center/match-center.js"></script>
 <script src="src/js/app/game/game.controller.js"></script>
 <script src="src/js/app/board/board.model.js"></script>
-<script src="src/js/app/match-center/match-center.js"></script>
 </body>
 </html>
