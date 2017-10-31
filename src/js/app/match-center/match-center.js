@@ -1,11 +1,22 @@
 var matchCenter = {
-    games: [],
+    games: [
+        {
+            homeTeam: teams[0],
+            awayTeam: teams[2],
+            result: []
+        },
+        {
+            homeTeam: teams[1],
+            awayTeam: teams[3],
+            result: []
+        }
+    ],
     team: team,
     init: function () {
         this.dom();
         this.events();
         this.renderTeams();
-        //this.renderGames();
+        this.renderGames();
     },
     dom: function () {
         this.selector = document.querySelector('[data-match-center]');
@@ -15,9 +26,12 @@ var matchCenter = {
         this.teamsDropdown = this.selector.querySelectorAll('[data-match-center-team]');
         this.homeTeam = this.selector.querySelector('[data-match-center-team="home"]');
         this.awayTeam = this.selector.querySelector('[data-match-center-team="away"]');
+        this.removeGameButtonSelector = 'data-match-center-remove-game';
+        this.gameSelector = 'data-match-center-game';
     },
     events: function () {
         this.addGameButton.addEventListener('click', this.addGame.bind(this));
+        this.gamesList.addEventListener('click', this.removeGame.bind(this));
     },
     renderTeams: function () {
         this.teamsDropdown.forEach(function (dropdown) {
@@ -51,12 +65,50 @@ var matchCenter = {
         var homeTeam = this.team.getTeam(homeTeamId);
         var awayTeam = this.team.getTeam(awayTeamId);
 
+        if (homeTeam === awayTeam) {
+            return;
+        }
+
         this.games.push({
             homeTeam: homeTeam,
             awayTeam: awayTeam,
             result: []
         });
         this.renderGames();
+    },
+    removeGame: function (e) {
+        var target = e.target;
+        var deleteButton;
+        var listItem;
+
+        /* Retrieve delete button and list item buy delegate event */
+        while (target != e.currentTarget) {
+            if(target.hasAttribute(this.removeGameButtonSelector)){
+                deleteButton = target;
+            }
+            if(target.hasAttribute(this.gameSelector)) {
+                listItem = target;
+            }
+            target = target.parentNode;
+        }
+
+        /* Exit function if we didn't click on delete button */
+        if (!deleteButton) {
+            return;
+        }
+
+        /* Get an array of all current games List items */
+        var gamesElements = this.gamesList.querySelectorAll('['+this.gameSelector+']');
+        gamesElements = Array.from(gamesElements);
+
+        /* Delete game from data */
+        this.games.splice(gamesElements.indexOf(listItem), 1);
+
+        /* Delete game from DOM */
+        this.gamesList.removeChild(listItem);
+
+        /* Terminate all other possible event listeners on deleted list item */
+        e.stopPropagation();
     }
 };
 matchCenter.init();

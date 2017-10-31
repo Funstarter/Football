@@ -10,18 +10,24 @@
     <link rel="stylesheet" href="public/styles.css">
 
     <script type="template/match-center-games" id="match-center-games">
-        <li class="list-group-item game" data-game="{id}">
-            <div class="game__id">{id}</div>
-            <div class="game__teams">
-                <span class="game__team">{homeTeam}</span>
-                <span class="game__team">{awayTeam}</span>
+        <li class="list-group-item d-flex justify-content-between align-items-center" data-match-center-game>
+            <div class="game" data-game="{id}">
+                <div class="game__id">#{id}</div>
+                <div class="game__teams">
+                    <span class="game__team">{homeTeam}</span>
+                    <span class="game__team">{awayTeam}</span>
+                </div>
+                <div class="game__control">
+                    <button class="btn btn-success btn-sm" type="button"
+                            data-game-control="play"
+                            data-attr-disabled
+                    >
+                        Play
+                    </button>
+                </div>
+                <div class="game__result" data-game-result>{result}</div>
             </div>
-            <div class="game__control">
-                <button class="btn btn-success btn-sm" type="button" data-game-control="play" data-attr-disabled>
-                    Play
-                </button>
-            </div>
-            <div class="game__result" data-game-result>{result}</div>
+            <button class="btn btn-sm btn-danger" type="button" data-match-center-remove-game>X</button>
         </li>
     </script>
 
@@ -40,9 +46,7 @@
                     <p class="card-text">List of today's matches</p>
                 </div>
 
-                <ul class="list-group list-group-flush" data-match-center-games>
-
-                </ul>
+                <ul class="list-group list-group-flush" data-match-center-games></ul>
 
                 <div class="card-body">
                     <div class="row">
