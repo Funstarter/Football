@@ -67,7 +67,13 @@ var matchCenter = {
         var homeTeam = this.team.getTeam(homeTeamId);
         var awayTeam = this.team.getTeam(awayTeamId);
 
+        /* Disallow the same teams */
         if (homeTeam === awayTeam) {
+            return;
+        }
+
+        /* Require home and away team selected */
+        if(!homeTeam || !awayTeam) {
             return;
         }
 
@@ -85,7 +91,7 @@ var matchCenter = {
         var listItem;
 
         /* Retrieve delete button and list item buy delegate event */
-        while (target != e.currentTarget) {
+        while (target !== e.currentTarget) {
             if(target.hasAttribute(this.removeGameButtonSelector)){
                 deleteButton = target;
             }
