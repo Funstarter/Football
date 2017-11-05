@@ -1,6 +1,6 @@
-var Game = function (homeTeam, awayTeam) {
-    this.homeTeam = homeTeam;
-    this.awayTeam = awayTeam;
+var Game = function (game) {
+    this.homeTeam = game.homeTeam;
+    this.awayTeam = game.awayTeam;
     this.homeFactor = 10;
     this.score = [0, 0];
 };
@@ -20,7 +20,7 @@ Game.prototype.play = function (callback) {
     var time = setInterval(function () {
         this.publish('showTime', counter++);
 
-        if ((counter % 10) == 0) {
+        if ((counter % 10) === 0) {
             this.attack(counter);
         }
 
@@ -70,7 +70,7 @@ Game.prototype.attack = function () {
  * @param side
  */
 Game.prototype.scoreGoal = function (side) {
-    var index = ( side == 'home' ) ? 0 : 1;
+    var index = ( side === 'home' ) ? 0 : 1;
     this.score[index]++;
     this.publish('scoreGoal', this.score);
 };
@@ -81,6 +81,6 @@ Game.prototype.scoreGoal = function (side) {
  * @returns {number}
  */
 Game.prototype.randomize = function (side) {
-    var level = ( side == 'home' ) ? ( this.homeTeam.level + this.homeFactor ) : this.awayTeam.level;
+    var level = ( side === 'home' ) ? ( this.homeTeam.level + this.homeFactor ) : this.awayTeam.level;
     return Math.round((level * 0.5) + (Math.random() * 100));
 };

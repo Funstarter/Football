@@ -30,9 +30,13 @@ document.addEventListener('click', function (e) {
         control = control.parentNode;
     }
 
+    var gameIndex = games.findIndex(function (item) {
+        return gameId === item.id;
+    });
+
     /* Starting new game */
-    gameBoard.render(games[gameId].homeTeam, games[gameId].awayTeam);
-    var game = new Game(games[gameId].homeTeam, games[gameId].awayTeam);
+    gameBoard.render(games[gameIndex].homeTeam, games[gameIndex].awayTeam);
+    var game = new Game(games[gameIndex]);
     game.subscribe('scoreGoal', gameBoard.showScore);
     game.subscribe('showTime', gameBoard.showTime);
     game.subscribe('message', gameBoard.showSummary);

@@ -1,11 +1,13 @@
 var matchCenter = {
     games: [
         {
+            id: 1,
             homeTeam: teams[0],
             awayTeam: teams[2],
             result: []
         },
         {
+            id: 2,
             homeTeam: teams[1],
             awayTeam: teams[3],
             result: []
@@ -47,7 +49,7 @@ var matchCenter = {
         var finalHtml = '';
 
         this.games.forEach(function (item, index) {
-            var gameHtml = template.replace(/{(id)}/g, index);
+            var gameHtml = template.replace(/{(id)}/g, item.id);
             gameHtml = gameHtml.replace(/{(homeTeam)}/g, item.homeTeam.name);
             gameHtml = gameHtml.replace(/{(awayTeam)}/g, item.awayTeam.name);
             gameHtml = gameHtml.replace(/{(result)}/g, (item.result.length == 0) ? '-:-' : item.result.join(':'));
@@ -70,6 +72,7 @@ var matchCenter = {
         }
 
         this.games.push({
+            id: this.games.length+1,
             homeTeam: homeTeam,
             awayTeam: awayTeam,
             result: []
