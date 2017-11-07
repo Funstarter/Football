@@ -1,71 +1,61 @@
-var matchCenter = {
-    games: [
-        {
-            id: 1,
-            homeTeam: teams[0],
-            awayTeam: teams[2],
-            result: []
-        },
-        {
-            id: 2,
-            homeTeam: teams[1],
-            awayTeam: teams[3],
-            result: []
-        }
-    ],
-    team: team,
-    init: function () {
-        this.dom();
-        this.events();
-        this.renderTeams();
-        this.renderGames();
-    },
-    dom: function () {
-        this.selector = document.querySelector('[data-match-center]');
-        this.gamesList = this.selector.querySelector('[data-match-center-games]');
-        this.gamesTemplate = document.querySelector('#match-center-games');
-        this.addGameButton = this.selector.querySelector('[data-match-center-add-game]');
-        this.teamsDropdown = this.selector.querySelectorAll('[data-match-center-team]');
-        this.homeTeam = this.selector.querySelector('[data-match-center-team="home"]');
-        this.awayTeam = this.selector.querySelector('[data-match-center-team="away"]');
-        this.removeGameButtonSelector = 'data-match-center-remove-game';
-        this.gameSelector = 'data-match-center-game';
-    },
-    events: function () {
-        this.addGameButton.addEventListener('click', this.addGame.bind(this));
-        this.gamesList.addEventListener('click', this.removeGame.bind(this));
-    },
-    renderTeams: function () {
-        this.teamsDropdown.forEach(function (dropdown) {
+/* Global var team from another file */
+
+(function () {
+
+    /* DOM Selectors */
+    var selector = document.querySelector('[data-match-center]');
+    if(!selector) {
+        return;
+    }
+    var gamesList = selector.querySelector('[data-match-center-games]');
+    var gamesTemplate = document.querySelector('#match-center-games');
+    var addGameButton = selector.querySelector('[data-match-center-add-game]');
+    var teamsDropdown = selector.querySelectorAll('[data-match-center-team]');
+    var newHomeTeam = selector.querySelector('[data-match-center-team="home"]');
+    var newAwayTeam = selector.querySelector('[data-match-center-team="away"]');
+    var removeGameButtonSelector = 'data-match-center-remove-game';
+    var gameSelector = 'data-match-center-game';
+
+    /* Events listeners */
+    addGameButton.addEventListener('click', addGame);
+    gamesList.addEventListener('click', removeGame);
+
+    /* Constructor functions */
+    renderTeams();
+    renderGames();
+
+    function renderTeams() {
+        teamsDropdown.forEach(function (dropdown) {
             var options = '';
-            this.team.teams.forEach(function (team) {
+            team.teams.forEach(function (team) {
                 options += '<option value="' + team.id + '">' + team.name + '</option>';
             });
             dropdown.insertAdjacentHTML('beforeEnd', options);
         });
-    },
-    renderGames: function () {
-        var template = this.gamesTemplate.innerHTML;
-        var finalHtml = '';
+    }
 
-        this.games.forEach(function (item, index) {
+    function renderGames() {
+        var template = gamesTemplate.innerHTML;
+        var finalHtml = '';
+        games.forEach(function (item) {
             var gameHtml = template.replace(/{(id)}/g, item.id);
             gameHtml = gameHtml.replace(/{(homeTeam)}/g, item.homeTeam.name);
             gameHtml = gameHtml.replace(/{(awayTeam)}/g, item.awayTeam.name);
-            gameHtml = gameHtml.replace(/{(result)}/g, (item.result.length == 0) ? '-:-' : item.result.join(':'));
+            gameHtml = gameHtml.replace(/{(result)}/g, (item.result.length === 0) ? '-:-' : item.result.join(':'));
             if (item.result.length > 0) {
                 gameHtml = gameHtml.replace(/(data-attr-disabled)/g, 'disabled');
             }
             finalHtml += gameHtml;
         });
-        this.gamesList.innerHTML = finalHtml;
-    },
-    addGame: function () {
-        var homeTeamId = Number(this.homeTeam.options[this.homeTeam.selectedIndex].value);
-        var awayTeamId = Number(this.awayTeam.options[this.awayTeam.selectedIndex].value);
+        gamesList.innerHTML = finalHtml;
+    }
 
-        var homeTeam = this.team.getTeam(homeTeamId);
-        var awayTeam = this.team.getTeam(awayTeamId);
+    function addGame() {
+        var homeTeamId = Number(newHomeTeam.options[newHomeTeam.selectedIndex].value);
+        var awayTeamId = Number(newAwayTeam.options[newAwayTeam.selectedIndex].value);
+
+        var homeTeam = team.getTeam(homeTeamId);
+        var awayTeam = team.getTeam(awayTeamId);
 
         /* Exit if home and away team are same */
         if (homeTeam === awayTeam) {
@@ -78,32 +68,33 @@ var matchCenter = {
         }
 
         /* Exit if game with same home and away teams already exist */
-        var notUnique = this.games.some(function (item) {
+        var notUnique = games.some(function (item) {
             return (item.homeTeam.id === homeTeamId) && (item.awayTeam.id === awayTeamId);
         });
-        if(notUnique) {
+        if (notUnique) {
             return;
         }
 
-        this.games.push({
-            id: this.games.length + 1,
+        games.push({
+            id: games.length + 1,
             homeTeam: homeTeam,
             awayTeam: awayTeam,
             result: []
         });
-        this.renderGames();
-    },
-    removeGame: function (e) {
+        renderGames();
+    }
+
+    function removeGame(e) {
         var target = e.target;
         var deleteButton;
         var listItem;
 
         /* Retrieve delete button and list item buy delegate event */
         while (target !== e.currentTarget) {
-            if (target.hasAttribute(this.removeGameButtonSelector)) {
+            if (target.hasAttribute(removeGameButtonSelector)) {
                 deleteButton = target;
             }
-            if (target.hasAttribute(this.gameSelector)) {
+            if (target.hasAttribute(gameSelector)) {
                 listItem = target;
             }
             target = target.parentNode;
@@ -115,17 +106,17 @@ var matchCenter = {
         }
 
         /* Get an array of all current games List items */
-        var gamesElements = this.gamesList.querySelectorAll('[' + this.gameSelector + ']');
+        var gamesElements = gamesList.querySelectorAll('[' + gameSelector + ']');
         gamesElements = Array.from(gamesElements);
 
         /* Delete game from data */
-        this.games.splice(gamesElements.indexOf(listItem), 1);
+        games.splice(gamesElements.indexOf(listItem), 1);
 
         /* Delete game from DOM */
-        this.gamesList.removeChild(listItem);
+        gamesList.removeChild(listItem);
 
         /* Terminate all other possible event listeners on deleted list item */
         e.stopPropagation();
     }
-};
-matchCenter.init();
+
+})();
