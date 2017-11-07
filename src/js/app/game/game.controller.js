@@ -1,6 +1,8 @@
 
 /* Initial State */
 var isPlaying;
+var games = matchCenter.getGames();
+console.log(games);
 
 document.addEventListener('click', function (e) {
 

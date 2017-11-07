@@ -1,6 +1,22 @@
-/* Global var team from another file */
+/* Global var team and games from another file */
 
-(function () {
+var matchCenter = (function () {
+
+    /* Properties */
+    var games = [
+        {
+            id: 1,
+            homeTeam: team.getTeam(3),
+            awayTeam: team.getTeam(1),
+            result: []
+        },
+        {
+            id: 2,
+            homeTeam: team.getTeam(5),
+            awayTeam: team.getTeam(14),
+            result: []
+        }
+    ];
 
     /* DOM Selectors */
     var selector = document.querySelector('[data-match-center]');
@@ -27,7 +43,7 @@
     function renderTeams() {
         teamsDropdown.forEach(function (dropdown) {
             var options = '';
-            team.teams.forEach(function (team) {
+            team.getTeams().forEach(function (team) {
                 options += '<option value="' + team.id + '">' + team.name + '</option>';
             });
             dropdown.insertAdjacentHTML('beforeEnd', options);
@@ -48,6 +64,10 @@
             finalHtml += gameHtml;
         });
         gamesList.innerHTML = finalHtml;
+    }
+
+    function getGames() {
+        return games;
     }
 
     function addGame() {
@@ -117,6 +137,10 @@
 
         /* Terminate all other possible event listeners on deleted list item */
         e.stopPropagation();
+    }
+
+    return {
+        getGames: getGames
     }
 
 })();
