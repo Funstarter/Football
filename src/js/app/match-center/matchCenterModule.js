@@ -1,19 +1,24 @@
-/* Global var team and games from another file */
+/**
+ * Globals
+ *
+ * teams data
+ * team module
+ */
 
-var matchCenter = (function () {
+var matchCenterModule = (function () {
 
     /* Properties */
     var games = [
         {
             id: 1,
-            homeTeam: team.getTeam(3),
-            awayTeam: team.getTeam(1),
+            homeTeam: teamModule.getTeam(3),
+            awayTeam: teamModule.getTeam(1),
             result: []
         },
         {
             id: 2,
-            homeTeam: team.getTeam(5),
-            awayTeam: team.getTeam(14),
+            homeTeam: teamModule.getTeam(5),
+            awayTeam: teamModule.getTeam(14),
             result: []
         }
     ];
@@ -43,7 +48,7 @@ var matchCenter = (function () {
     function renderTeams() {
         teamsDropdown.forEach(function (dropdown) {
             var options = '';
-            team.getTeams().forEach(function (team) {
+            teams.forEach(function (team) {
                 options += '<option value="' + team.id + '">' + team.name + '</option>';
             });
             dropdown.insertAdjacentHTML('beforeEnd', options);
@@ -74,8 +79,8 @@ var matchCenter = (function () {
         var homeTeamId = Number(newHomeTeam.options[newHomeTeam.selectedIndex].value);
         var awayTeamId = Number(newAwayTeam.options[newAwayTeam.selectedIndex].value);
 
-        var homeTeam = team.getTeam(homeTeamId);
-        var awayTeam = team.getTeam(awayTeamId);
+        var homeTeam = teamModule.getTeam(homeTeamId);
+        var awayTeam = teamModule.getTeam(awayTeamId);
 
         /* Exit if home and away team are same */
         if (homeTeam === awayTeam) {

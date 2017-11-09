@@ -25,7 +25,7 @@ var publisher = {
 
 function makePublisher(ob) {
     for (var item in publisher) {
-        if (publisher.hasOwnProperty(item) && typeof publisher[item] != 'object') {
+        if (publisher.hasOwnProperty(item) && typeof publisher[item] !== 'object') {
             ob[item] = publisher[item];
         }
         ob.subscribers = {
