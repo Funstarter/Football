@@ -1,7 +1,7 @@
 /**
  * Globals
  *
- * teams data
+ * teams
  */
 
 var teamModule = {

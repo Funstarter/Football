@@ -2,7 +2,8 @@
  * Globals
  *
  * teams data
- * team module
+ * teamModule
+ * gameModule
  */
 
 var matchCenterModule = (function () {
@@ -35,10 +36,12 @@ var matchCenterModule = (function () {
     var newHomeTeam = selector.querySelector('[data-match-center-team="home"]');
     var newAwayTeam = selector.querySelector('[data-match-center-team="away"]');
     var removeGameButtonSelector = 'data-match-center-remove-game';
+    var startGameButtonSelector = 'data-game-control-play';
     var gameSelector = 'data-match-center-game';
 
     /* Events listeners */
     addGameButton.addEventListener('click', addGame);
+    gamesList.addEventListener('click', startGame);
     gamesList.addEventListener('click', removeGame);
 
     /* Constructor functions */
@@ -71,8 +74,33 @@ var matchCenterModule = (function () {
         gamesList.innerHTML = finalHtml;
     }
 
-    function getGames() {
-        return games;
+    function startGame(e) {
+        var target = e.target;
+        var control;
+        var gameId;
+
+        while(target !== e.currentTarget) {
+            if(target.hasAttribute(startGameButtonSelector)){
+                control = target;
+            }
+            if (target.hasAttribute('data-game')) {
+                gameId = parseInt(target.getAttribute('data-game'));
+            }
+            target = target.parentNode;
+        }
+
+        if(!control) {
+            return;
+        }
+
+        console.log(target);
+
+        var gameIndex = games.findIndex(function (item) {
+            return gameId === item.id;
+        });
+
+        //TODO Remove modules coupling by Mediator
+        gameModule.startGame(games[gameIndex]);
     }
 
     function addGame() {
@@ -142,10 +170,6 @@ var matchCenterModule = (function () {
 
         /* Terminate all other possible event listeners on deleted list item */
         e.stopPropagation();
-    }
-
-    return {
-        getGames: getGames
     }
 
 })();

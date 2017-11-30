@@ -1,8 +1,7 @@
 /**
  * Globals
  *
- * matchCenter module
- * board module
+ * boardModule
  */
 
 var gameModule = (function(){
@@ -14,58 +13,23 @@ var gameModule = (function(){
     var _homeTeamAdvantage = 10;
     var _score = [0, 0];
 
-    //TODO Remove modules coupling by Mediator
-    var games = matchCenterModule.getGames();
-
-    /* DOM Selectors  */
-    var $gameScope = document.querySelector('[data-game]');
-    var $playGameButton = $gameScope.querySelector('[data-game-control]');
-
-    /* Event listeners */
-    document.addEventListener('click', startGame);
-
-    /**
-     * Handle start game event
-     * Validate game possibility and invoke play game
-     *
-     * @param event object
-     */
-    function startGame(event) {
-
-        /* Delegate handler. If element not found finish handling */
-        if (!helpers.delegate('data-game-control', event)) {
-            return;
-        }
+    function startGame(game) {
 
         /* Prevent starting new game before current is finished */
         if (_isPlaying === true) {
             return;
         }
         _isPlaying = true;
-        Array.from(document.querySelectorAll('[data-game-control]'), function (item) {
+        _score = [0, 0];
+        Array.from(document.querySelectorAll('[data-game-control-play]'), function (item) {
             item.setAttribute('disabled', 'disabled');
-        });
-
-        /* Get Game id */
-        var gameId;
-        var control = event.target;
-        while (control !== event.currentTarget) {
-            if (control.hasAttribute('data-game')) {
-                gameId = parseInt(control.getAttribute('data-game'));
-                break;
-            }
-            control = control.parentNode;
-        }
-
-        var gameIndex = games.findIndex(function (item) {
-            return gameId === item.id;
         });
 
         /* Starting new game */
         //TODO Remove modules coupling by Mediator
-        boardModule.render(games[gameIndex].homeTeam, games[gameIndex].awayTeam);
-        _homeTeam = games[gameIndex].homeTeam;
-        _awayTeam = games[gameIndex].awayTeam;
+        boardModule.render(game.homeTeam, game.awayTeam);
+        _homeTeam = game.homeTeam;
+        _awayTeam = game.awayTeam;
 
         console.log('plaing');
 
@@ -75,7 +39,7 @@ var gameModule = (function(){
         game.subscribe('message', gameBoard.showSummary);*/
         _play(function () {
             _isPlaying = false;
-            Array.from(document.querySelectorAll('[data-game-control]'), function (item) {
+            Array.from(document.querySelectorAll('[data-game-control-play]'), function (item) {
                 item.removeAttribute('disabled');
             });
             /*game.unsubscribe('scoreGoal', gameBoard.showScore);
@@ -83,10 +47,6 @@ var gameModule = (function(){
             game.unsubscribe('message', gameBoard.showSummary);*/
             console.log('finish');
         });
-    }
-
-    function renderGame() {
-
     }
 
     function _play(callback) {
@@ -152,21 +112,13 @@ var gameModule = (function(){
         console.log(_score);
     }
 
-    /**
-     * Decide which side has to attack
-     *
-     * @param side
-     * @returns {number}
-     */
     function _randomize(side) {
         var level = ( side === 'home' ) ? ( _homeTeam.level + _homeTeamAdvantage ) : _awayTeam.level;
         return Math.round((level * 0.5) + (Math.random() * 100));
     }
 
-    /* Public methods */
     return {
-        startGame: startGame,
-        renderGame: renderGame
+        startGame: startGame
     }
 
 })();
