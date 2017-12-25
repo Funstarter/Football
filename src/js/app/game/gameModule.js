@@ -13,6 +13,9 @@ var gameModule = (function(){
     var _homeTeamAdvantage = 10;
     var _score = [0, 0];
 
+    /* Events */
+    pubsub.on('startGame', startGame);
+
     function startGame(game) {
 
         /* Prevent starting new game before current is finished */
@@ -31,7 +34,7 @@ var gameModule = (function(){
         _homeTeam = game.homeTeam;
         _awayTeam = game.awayTeam;
 
-        console.log('plaing');
+        console.log('playing');
 
         //var game = new Game(games[gameIndex]);
         /*game.subscribe('scoreGoal', gameBoard.showScore);
@@ -115,10 +118,6 @@ var gameModule = (function(){
     function _randomize(side) {
         var level = ( side === 'home' ) ? ( _homeTeam.level + _homeTeamAdvantage ) : _awayTeam.level;
         return Math.round((level * 0.5) + (Math.random() * 100));
-    }
-
-    return {
-        startGame: startGame
     }
 
 })();

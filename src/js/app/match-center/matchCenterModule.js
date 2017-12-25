@@ -3,7 +3,6 @@
  *
  * teams data
  * teamModule
- * gameModule
  */
 
 var matchCenterModule = (function () {
@@ -98,9 +97,7 @@ var matchCenterModule = (function () {
         var gameIndex = games.findIndex(function (item) {
             return gameId === item.id;
         });
-
-        //TODO Remove modules coupling by Mediator
-        gameModule.startGame(games[gameIndex]);
+        pubsub.emit('startGame', games[gameIndex]);
     }
 
     function addGame() {
