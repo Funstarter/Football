@@ -92,8 +92,6 @@ var matchCenterModule = (function () {
             return;
         }
 
-        console.log(target);
-
         var gameIndex = games.findIndex(function (item) {
             return gameId === item.id;
         });
