@@ -38,10 +38,13 @@ var gameModule = (function(){
             Array.from(document.querySelectorAll('[data-game-control-play]'), function (item) {
                 item.removeAttribute('disabled');
             });
+            /**
+             * @hooked boardModule.clearBoard
+             */
+            pubsub.emit('endGame');
             /*game.unsubscribe('scoreGoal', gameBoard.showScore);
             game.unsubscribe('showTime', gameBoard.showTime);
             game.unsubscribe('message', gameBoard.showSummary);*/
-            console.log('finish');
         });
     }
 

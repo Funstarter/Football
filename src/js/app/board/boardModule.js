@@ -8,6 +8,7 @@ var boardModule = {
         pubsub.on('showTime', this.showTime.bind(this));
         pubsub.on('showMessage', this.showSummary.bind(this));
         pubsub.on('scoreGoal', this.showScore.bind(this));
+        pubsub.on('endGame', this.clearBoard.bind(this));
     },
     render: function (game) {
         this.element.querySelector('#score').innerHTML = '0:0';
@@ -24,6 +25,13 @@ var boardModule = {
     },
     showSummary: function (message) {
         this.element.querySelector('#summary').insertAdjacentHTML('beforeEnd', '<p>' + message + '</p>');
+    },
+    clearBoard: function () {
+        console.log('finish');
+        pubsub.off('playGame', this.render.bind(this));
+        pubsub.off('showTime', this.showTime.bind(this));
+        pubsub.off('showMessage', this.showSummary.bind(this));
+        pubsub.off('scoreGoal', this.showScore.bind(this));
     }
 };
 boardModule.init();
