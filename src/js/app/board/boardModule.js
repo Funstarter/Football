@@ -17,13 +17,13 @@ var boardModule = {
         this.element.querySelector('#timer').innerHTML = '0';
     },
     showScore: function (score) {
-        document.querySelector('#score').innerHTML = score.join(':');
+        this.element.querySelector('#score').innerHTML = score.join(':');
     },
     showTime: function (time) {
-        document.querySelector('#timer').innerHTML = time;
+        this.element.querySelector('#timer').innerHTML = time;
     },
     showSummary: function (message) {
-        document.querySelector('#summary').insertAdjacentHTML('beforeEnd', '<p>' + message + '</p>');
+        this.element.querySelector('#summary').insertAdjacentHTML('beforeEnd', '<p>' + message + '</p>');
     }
 };
 boardModule.init();
