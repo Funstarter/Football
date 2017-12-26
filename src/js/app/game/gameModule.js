@@ -1,9 +1,3 @@
-/**
- * Globals
- *
- * boardModule
- */
-
 var gameModule = (function(){
 
     /* Properties  */
@@ -28,13 +22,12 @@ var gameModule = (function(){
             item.setAttribute('disabled', 'disabled');
         });
 
-        /* Starting new game */
-        //TODO Remove modules coupling by Mediator
-        boardModule.render(game.homeTeam, game.awayTeam);
+        /**
+         * @hooked boardModule.render
+         */
+        pubsub.emit('playGame', game);
         _homeTeam = game.homeTeam;
         _awayTeam = game.awayTeam;
-
-        console.log('playing');
 
         //var game = new Game(games[gameIndex]);
         /*game.subscribe('scoreGoal', gameBoard.showScore);
@@ -56,12 +49,16 @@ var gameModule = (function(){
         var counter = 0;
 
         _attack();
-        //this.publish('showTime', counter++);
-        console.log(counter++);
+        /**
+         * @hooked boardModule.showTime
+         */
+        pubsub.emit('showTime', counter++);
 
         var time = setInterval(function () {
-            //this.publish('showTime', counter++);
-            console.log(counter++);
+            /**
+             * @hooked boardModule.showTime
+             */
+            pubsub.emit('showTime', counter++);
 
             /* Attack attempt every 10 times */
             if ((counter % 10) === 0) {
@@ -85,24 +82,32 @@ var gameModule = (function(){
 
         /* Home Team attack */
         if (homeAttackPower > awayAttackPower) {
-            //this.publish('message', 'home team attac');
-            console.log('home team attack');
+            /**
+             * @hooked boardModule.showSummary
+             */
+            pubsub.emit('showMessage', 'home team attac');
 
             if (homeAttackPower > awayDefencePower) {
-                //this.publish('message', 'home team score!!!');
-                console.log('home team score!!!');
+                /**
+                 * @hooked boardModule.showSummary
+                 */
+                pubsub.emit('showMessage', 'home team score!!!');
                 _scoreGoal('home');
             }
         }
 
         /* Away Team attack */
         if (awayAttackPower > homeAttackPower) {
-            //this.publish('message', 'away team attac');
-            console.log('away team attack');
+            /**
+             * @hooked boardModule.showSummary
+             */
+            pubsub.emit('showMessage', 'away team attack');
 
             if (awayAttackPower > homeDefencePower) {
-                //this.publish('message', 'away team score!!!');
-                console.log('away team score!!!');
+                /**
+                 * @hooked boardModule.showSummary
+                 */
+                pubsub.emit('showMessage', 'away team score!!!');
                 _scoreGoal('away');
             }
         }
@@ -111,8 +116,10 @@ var gameModule = (function(){
     function _scoreGoal(side) {
         var index = ( side === 'home' ) ? 0 : 1;
         _score[index]++;
-        //this.publish('scoreGoal', this.score);
-        console.log(_score);
+        /**
+         * @hooked boardModule.showScore
+         */
+        pubsub.emit('scoreGoal', _score);
     }
 
     function _randomize(side) {
