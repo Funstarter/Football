@@ -42,6 +42,7 @@ var gameModule = (function(){
              * @hooked boardModule.clearBoard
              */
             pubsub.emit('endGame');
+            pubsub.off('startGame', startGame);
             /*game.unsubscribe('scoreGoal', gameBoard.showScore);
             game.unsubscribe('showTime', gameBoard.showTime);
             game.unsubscribe('message', gameBoard.showSummary);*/
@@ -68,7 +69,7 @@ var gameModule = (function(){
                 _attack(counter);
             }
 
-            if (counter > 90) {
+            if (counter > 10) {
                 _attack(counter);
                 clearInterval(time);
                 callback();

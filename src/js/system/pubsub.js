@@ -7,6 +7,10 @@ var pubsub = {
     off: function (eventName, fn) {
         if(this.events[eventName]) {
             for(var i = 0; i < this.events[eventName].length; i++) {
+                console.log(this.events[eventName][i] === fn);
+                console.log(this.events[eventName][i].name);
+                console.log(fn.name);
+                console.log('-');
                 if(this.events[eventName][i] === fn) {
                     this.events[eventName].splice(i, 1);
                     break;
