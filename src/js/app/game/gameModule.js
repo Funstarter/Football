@@ -28,11 +28,6 @@ var gameModule = (function(){
         pubsub.emit('playGame', game);
         _homeTeam = game.homeTeam;
         _awayTeam = game.awayTeam;
-
-        //var game = new Game(games[gameIndex]);
-        /*game.subscribe('scoreGoal', gameBoard.showScore);
-        game.subscribe('showTime', gameBoard.showTime);
-        game.subscribe('message', gameBoard.showSummary);*/
         _play(function () {
             _isPlaying = false;
             Array.from(document.querySelectorAll('[data-game-control-play]'), function (item) {
@@ -42,10 +37,6 @@ var gameModule = (function(){
              * @hooked boardModule.clearBoard
              */
             pubsub.emit('endGame');
-            pubsub.off('startGame', startGame);
-            /*game.unsubscribe('scoreGoal', gameBoard.showScore);
-            game.unsubscribe('showTime', gameBoard.showTime);
-            game.unsubscribe('message', gameBoard.showSummary);*/
         });
     }
 

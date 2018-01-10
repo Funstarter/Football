@@ -1,16 +1,13 @@
 var boardModule = {
-    init: function() {
+    init: function () {
         this.events();
     },
     element: document.querySelector('#game-board'),
     events: function () {
-        //console.log(pubsub.events);
-        pubsub.on('playGame', this.render.bind(this));
-        pubsub.on('showTime', this.showTime.bind(this));
-        pubsub.on('showMessage', this.showSummary.bind(this));
-        pubsub.on('scoreGoal', this.showScore.bind(this));
-        pubsub.on('endGame', this.clearBoard.bind(this));
-        //console.log(pubsub.events);
+        pubsub.on('playGame', this.render, this);
+        pubsub.on('showTime', this.showTime, this);
+        pubsub.on('showMessage', this.showSummary, this);
+        pubsub.on('scoreGoal', this.showScore, this);
     },
     render: function (game) {
         this.element.querySelector('#score').innerHTML = '0:0';
@@ -27,19 +24,6 @@ var boardModule = {
     },
     showSummary: function (message) {
         this.element.querySelector('#summary').insertAdjacentHTML('beforeEnd', '<p>' + message + '</p>');
-    },
-    foo: function(){
-        return 'fake function';
-    },
-    clearBoard: function () {
-        console.log(pubsub.events);
-        //setTimeout(function(){
-            pubsub.off('playGame', this.foo.bind(this));
-            pubsub.off('showTime', this.showTime.bind(this));
-            pubsub.off('showMessage', this.showSummary.bind(this));
-            pubsub.off('scoreGoal', this.showScore.bind(this));
-            console.log(pubsub.events);
-        //}.bind(this), 2000);
     }
 };
 boardModule.init();
