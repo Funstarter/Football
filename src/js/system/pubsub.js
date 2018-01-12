@@ -1,16 +1,14 @@
 var pubsub = {
     events: {},
     on: function (eventName, fn, context) {
+        context = context || undefined;
         this.events[eventName] = this.events[eventName] || [];
-        this.events[eventName].push({context: context, callback: fn.bind(context)});
+        this.events[eventName].push({context: context, callback: fn});
     },
-    off: function (eventName, fn, context) {
+    off: function (eventName, fn) {
         if(this.events[eventName]) {
             for(var i = 0; i < this.events[eventName].length; i++) {
-                if(
-                    (this.events[eventName][i].callback.name === fn.bind(this).name) &&
-                    (this.events[eventName][i].context === context)
-                ){
+                if(this.events[eventName][i].callback === fn){
                     this.events[eventName].splice(i, 1);
                     break;
                 }
@@ -20,7 +18,7 @@ var pubsub = {
     emit: function (eventName, data) {
         if(this.events[eventName]) {
             this.events[eventName].forEach(function(object){
-                object.callback(data);
+                object.callback.call(object.context, data);
             });
         }
     }
