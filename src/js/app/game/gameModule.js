@@ -1,4 +1,4 @@
-var gameModule = (function(){
+var gameModule = (function () {
 
     /* Properties  */
     var _isPlaying;
@@ -18,23 +18,20 @@ var gameModule = (function(){
         }
         _isPlaying = true;
         _score = [0, 0];
-        Array.from(document.querySelectorAll('[data-game-control-play]'), function (item) {
-            item.setAttribute('disabled', 'disabled');
-        });
+        _homeTeam = game.homeTeam;
+        _awayTeam = game.awayTeam;
 
         /**
          * @hooked boardModule.render
+         * @hooked matchCenterModule.freezeGames
          */
         pubsub.emit('playGame', game);
-        _homeTeam = game.homeTeam;
-        _awayTeam = game.awayTeam;
+
         _play(function () {
             _isPlaying = false;
-            Array.from(document.querySelectorAll('[data-game-control-play]'), function (item) {
-                item.removeAttribute('disabled');
-            });
             /**
              * @hooked boardModule.clearBoard
+             * @hooked matchCenterModule.unfreezeGames
              */
             pubsub.emit('endGame');
         });

@@ -42,6 +42,8 @@ var matchCenterModule = (function () {
     addGameButton.addEventListener('click', addGame);
     gamesList.addEventListener('click', startGame);
     gamesList.addEventListener('click', removeGame);
+    pubsub.on('playGame', freezeGames);
+    pubsub.on('endGame', unfreezeGames);
 
     /* Constructor functions */
     renderTeams();
@@ -165,6 +167,20 @@ var matchCenterModule = (function () {
 
         /* Terminate all other possible event listeners on deleted list item */
         e.stopPropagation();
+    }
+
+    function freezeGames() {
+        Array.from(document.querySelectorAll('[data-game-control-play]'), function (item) {
+            item.setAttribute('disabled', 'disabled');
+        });
+    }
+
+    function unfreezeGames() {
+        Array
+            .from(document.querySelectorAll('[data-game]'))
+            .map(function (item) {
+                item.querySelector('[data-game-control-play]').removeAttribute('disabled');
+            });
     }
 
 })();
