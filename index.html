@@ -1,94 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Football</title>
-    <meta name="description" content="Football game">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
-    <link rel="stylesheet" href="public/styles.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Football</title>
+  <meta name="description" content="Football game">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+  <link rel="stylesheet" href="public/styles.css">
 
-    <script type="template/match-center-games" id="match-center-games">
-        <li class="list-group-item d-flex justify-content-between align-items-center" data-match-center-game>
-            <div class="d-flex align-items-center" data-game="{id}">
-                <div class="mr-3">#{id}</div>
-                <div class="mr-3 d-flex">
-                    <span>{homeTeam}</span>
-                    <span class="mr-1 ml-1">&ndash;</span>
-                    <span>{awayTeam}</span>
-                </div>
-                <div class="mr-3">
-                    <button class="btn btn-success btn-sm" type="button"
-                            data-game-control-play
-                            data-attr-disabled
-                    >
-                        Play
-                    </button>
-                </div>
-                <div data-game-result>{result}</div>
-            </div>
-            <button class="btn btn-sm btn-danger" type="button" data-match-center-remove-game>X</button>
-        </li>
-    </script>
+  <script type="template/match-center-games" id="match-center-games">
+    <li class="list-group-item d-flex justify-content-between align-items-center" data-match-center-game>
+      <div class="d-flex align-items-center" data-game="{id}">
+        <div class="mr-3">#{id}</div>
+        <div class="mr-3 d-flex">
+          <span>{homeTeam}</span>
+          <span class="mr-1 ml-1">&ndash;</span>
+          <span>{awayTeam}</span>
+        </div>
+        <div class="mr-3">
+          <button class="btn btn-success btn-sm" type="button"
+                  data-game-control-play
+                  data-attr-disabled
+          >
+            Play
+          </button>
+        </div>
+        <div data-game-result>{result}</div>
+      </div>
+      <button class="btn btn-sm btn-danger" type="button" data-match-center-remove-game>X</button>
+    </li>
+  </script>
 
 </head>
 <body>
 
 <div class="container">
 
-    <div class="row">
-        <div class="col-md-6">
+  <div class="row">
+    <div class="col-md-6">
 
-            <!-- Match Center -->
-            <div class="card" data-match-center>
-                <div class="card-body">
-                    <h4 class="card-title">Match Center</h4>
-                    <p class="card-text">List of today's matches</p>
-                </div>
+      <!-- Match Center -->
+      <div class="card" data-match-center>
+        <div class="card-body">
+          <h4 class="card-title">Match Center</h4>
+          <p class="card-text">List of today's matches</p>
+        </div>
 
-                <ul class="list-group list-group-flush" data-match-center-games></ul>
+        <ul class="list-group list-group-flush" data-match-center-games></ul>
 
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <label for="home-team-select">Home team</label>
-                            <select class="form-control" id="home-team-select" data-match-center-team="home">
-                                <option value="0">Home team</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-6">
-                            <label for="away-team-select">Away team</label>
-                            <select class="form-control" id="away-team-select" data-match-center-team="away">
-                                <option value="0">Away team</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-12 mt-3">
-                            <button type="submit" class="btn btn-primary" data-match-center-add-game>Submit</button>
-                        </div>
-                    </div>
-                </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-6">
+              <label for="home-team-select">Home team</label>
+              <select class="form-control" id="home-team-select" data-match-center-team="home">
+                <option value="0">Home team</option>
+              </select>
             </div>
-            <!-- /.Match Center -->
-
-        </div><!-- ./col -->
-        <div class="col-md-6">
-            <div class="card" id="game-board">
-                <div class="card-body">
-                    <h4 class="card-title">Game board</h4>
-                    <h6 class="card-subtitle mb-2 text-muted" id="timer">0</h6>
-                    <div class="card-text">
-                        <ul>
-                            <li id="homeTeamName">Home team</li>
-                            <li id="score">0:0</li>
-                            <li id="awayTeam">Away team</li>
-                        </ul>
-                        <p class="card-text" id="summary"></p>
-                    </div>
-                </div>
+            <div class="col-sm-6">
+              <label for="away-team-select">Away team</label>
+              <select class="form-control" id="away-team-select" data-match-center-team="away">
+                <option value="0">Away team</option>
+              </select>
             </div>
-        </div><!-- ./col -->
-    </div><!-- ./row -->
+            <div class="col-sm-12 mt-3">
+              <button type="submit" class="btn btn-primary" data-match-center-add-game>Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.Match Center -->
+
+    </div><!-- ./col -->
+    <div class="col-md-6">
+
+      <!-- Game board -->
+      <div class="card" id="game-board">
+        <div class="card-body">
+          <h4 class="card-title">Game board</h4>
+          <h6 class="card-subtitle mb-2 text-muted" id="timer">0</h6>
+          <div class="card-text">
+            <ul>
+              <li id="homeTeamName">Home team</li>
+              <li id="score">0:0</li>
+              <li id="awayTeam">Away team</li>
+            </ul>
+            <p class="card-text" id="summary"></p>
+          </div>
+        </div>
+      </div>
+
+      <canvas class="mt-4" id="teams-chart" width="300" height="300"></canvas>
+
+    </div><!-- ./col -->
+  </div><!-- ./row -->
 
 </div>
 
@@ -104,5 +109,6 @@
 <script src="src/js/app/match-center/matchCenterModule.js"></script>
 <script src="src/js/app/game/gameModule.js"></script>
 <script src="src/js/app/board/boardModule.js"></script>
+<script src="src/js/app/teams-chart/teamsChartModule.js"></script>
 </body>
 </html>
