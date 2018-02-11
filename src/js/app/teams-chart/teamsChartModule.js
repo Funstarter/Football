@@ -3,29 +3,54 @@ Globals: teams;
 */
 
 var teamsChartModule = (function () {
-    var canvas = document.querySelector('#teams-chart');
-    var context = canvas.getContext('2d');
 
-    context.fillStyle = 'white';
-    context.fillRect(0, 0, 300, 300);
-    context.strokeRect(0, 0, 300, 300);
+    // DOM elements
+    var context = document.querySelector('#teams-chart').getContext('2d');
 
-    context.fillStyle = '#000';
-    context.font = '14px Arial';
-    context.fillText('Teams win Charts', 30, 30);
+    function renderFrame() {
+        context.fillStyle = 'white';
+        context.fillRect(0, 0, 300, 300);
+        context.strokeRect(0, 0, 300, 300);
 
-    console.log(teams);
+        context.fillStyle = '#000';
+        context.font = '14px Arial';
+        context.fillText('Teams wins Charts', 30, 30);
+    }
 
-    var step = 30;
-    var rectHeight = 30;
+    function getMaxWidth() {
+        var maxWidth = 0;
+        teams.forEach(function (item, index) {
+            if (item.stats.wins > maxWidth) {
+                maxWidth = item.stats.wins;
+            }
+        });
+        return maxWidth;
+    }
 
-    teams.forEach(function (item, index) {
-        var x1 = 30;
-        var y = 70 + ((rectHeight + 20) * index);
-        var w = 130;
-        var h = 30;
-        context.fillRect(x1, y, w, h);
-        context.fillText(item.name, 180, 70 + (step * index));
-    });
+    function renderChart() {
+        var leftPadding = 30;
+        var topPadding = 60;
+        var rectHeight = 30;
+        var rectIndent = 20;
+        var maxRectWidth = 180;
+        var textLineHeight = 18;
+        var textIndent = 40;
+
+        teams.forEach(function (item, index) {
+            var y = topPadding + ((rectHeight + rectIndent) * index);
+            var rectWidth = Math.round((maxRectWidth * item.stats.wins) / getMaxWidth());
+
+            context.fillRect(leftPadding, y, rectWidth, rectHeight);
+            context.fillText(item.name + ' (' + item.stats.wins + ')', rectWidth + textIndent, y + textLineHeight);
+        });
+    }
+
+    return {
+        render: function(){
+            renderFrame();
+            renderChart();
+        }
+    }
 
 })();
+teamsChartModule.render();
