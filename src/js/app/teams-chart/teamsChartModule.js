@@ -5,7 +5,11 @@ Globals: teams;
 var teamsChartModule = (function () {
 
     // DOM elements
-    var context = document.querySelector('#teams-chart').getContext('2d');
+    var canvas = document.querySelector('#teams-chart');
+    var context = canvas.getContext('2d');
+
+    //Events
+    pubsub.on('changeTeamsStats', reRender);
 
     function renderFrame() {
         context.fillStyle = 'white';
@@ -45,11 +49,18 @@ var teamsChartModule = (function () {
         });
     }
 
+    function render() {
+        renderFrame();
+        renderChart();
+    }
+
+    function reRender() {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        render();
+    }
+
     return {
-        render: function(){
-            renderFrame();
-            renderChart();
-        }
+        render: render
     }
 
 })();

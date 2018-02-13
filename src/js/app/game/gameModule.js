@@ -29,11 +29,12 @@ var gameModule = (function () {
 
         _play(function () {
             _isPlaying = false;
+            game.result = _score;
             /**
              * @hooked boardModule.clearBoard
              * @hooked matchCenterModule.unfreezeGames
              */
-            pubsub.emit('endGame');
+            pubsub.emit('endGame', game);
         });
     }
 
