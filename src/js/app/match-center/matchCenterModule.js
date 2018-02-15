@@ -19,7 +19,7 @@ var matchCenterModule = (function () {
             id: 2,
             homeTeam: teamModule.getTeam(5),
             awayTeam: teamModule.getTeam(14),
-            result: []
+            result: [1,1]
         }
     ];
 
@@ -42,8 +42,8 @@ var matchCenterModule = (function () {
     addGameButton.addEventListener('click', addGame);
     gamesList.addEventListener('click', startGame);
     gamesList.addEventListener('click', removeGame);
-    pubsub.on('playGame', freezeGames);
-    pubsub.on('endGame', unfreezeGames);
+    pubsub.on('playGame', onPlayGame);
+    pubsub.on('endGame', onGameEnd);
 
     /* Constructor functions */
     renderTeams();
@@ -169,18 +169,21 @@ var matchCenterModule = (function () {
         e.stopPropagation();
     }
 
-    function freezeGames() {
+    function onPlayGame() {
+        //Disable all games while game is playng
         Array.from(document.querySelectorAll('[data-game-control-play]'), function (item) {
             item.setAttribute('disabled', 'disabled');
         });
     }
 
-    function unfreezeGames() {
+    function onGameEnd(game) {
+        //Enable all games after game ended
         Array
             .from(document.querySelectorAll('[data-game]'))
             .map(function (item) {
                 item.querySelector('[data-game-control-play]').removeAttribute('disabled');
             });
+        renderGames();
     }
 
 })();
