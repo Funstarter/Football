@@ -9,7 +9,7 @@ var teamModule = {
         this.events();
     },
     events: function () {
-        pubsub.on('endGame', this.addWin)
+        pubsub.on('endGame', this.addWin.bind(this))
     },
     getTeam: function (id) {
         return teams.find(function (item) {
@@ -17,13 +17,9 @@ var teamModule = {
         });
     },
     addWin: function (game) {
-        var winner;
+        var winner = this.getWinner(game);
 
-        if (game.result[0] > game.result[1]) {
-            winner = game.homeTeam;
-        } else if (game.result[0] < game.result[1]) {
-            winner = game.awayTeam;
-        } else {
+        if (!winner) {
             return;
         }
 
@@ -34,6 +30,15 @@ var teamModule = {
         if (teams[winnerIndex] !== -1) {
             teams[winnerIndex].stats.wins++;
             pubsub.emit('changeTeamsStats')
+        }
+    },
+    getWinner: function (game) {
+        if (game.result[0] > game.result[1]) {
+            return game.homeTeam;
+        } else if (game.result[0] < game.result[1]) {
+            return game.awayTeam;
+        } else {
+            return null;
         }
     }
 };

@@ -18,7 +18,7 @@ var teamsChartModule = (function () {
 
         context.fillStyle = '#000';
         context.font = '14px Arial';
-        context.fillText('Teams wins Charts', 30, 30);
+        context.fillText('Statistics', 30, 30);
     }
 
     function getMaxWidth() {
