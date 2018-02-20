@@ -71,6 +71,51 @@
       </div>
       <!-- /.Match Center -->
 
+      <div class="card mt-4" id="new-team">
+        <div class="card-body">
+          <h4 class="card-title">Add New Team</h4>
+          <div class="card-text">
+            <form class="row" method="post">
+              <div class="col-sm-8">
+                <div class="form-group">
+                  <label for="team-name-field">Name</label>
+                  <input type="text"
+                         class="form-control"
+                         id="team-name-field"
+                         name="name"
+                         data-field
+                         required
+                  >
+                  <div class="invalid-feedback">
+                    Empty!
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="team-level-field">Level</label>
+                  <input type="number"
+                         class="form-control"
+                         id="team-level-field"
+                         name="level"
+                         value="0"
+                         min="1" max="100"
+                         data-field
+                         required
+                  >
+                  <div class="invalid-feedback">
+                    Less then 1!
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
     </div><!-- ./col -->
     <div class="col-md-6">
 
@@ -110,5 +155,6 @@
 <script src="src/js/app/game/gameModule.js"></script>
 <script src="src/js/app/board/boardModule.js"></script>
 <script src="src/js/app/teams-chart/teamsChartModule.js"></script>
+<script src="src/js/app/add-new-team/add-new-team.js"></script>
 </body>
 </html>
