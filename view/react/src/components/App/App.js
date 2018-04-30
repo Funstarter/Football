@@ -1,10 +1,9 @@
 import './App.css';
 import React from 'react';
+import Tournament from '../../containers/Tournament/Tournament';
 
-const App = (props) => (
-    <div>
-        This is APP
-    </div>
+const App = () => (
+    <Tournament/>
 );
 
 export default App;
