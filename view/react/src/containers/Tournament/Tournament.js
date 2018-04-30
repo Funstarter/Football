@@ -54,7 +54,8 @@ class Tournament extends Component {
                     }
                 }
             ]
-        }
+        };
+        this.addGameHandler = this.addGameHandler.bind(this);
     }
 
     getGames() {
@@ -70,12 +71,48 @@ class Tournament extends Component {
         return this.state.teams.find(team => team.id === teamId);
     }
 
+    addGameHandler(homeTeamId, awayTeamId) {
+
+        //TODO Add Error handling in modal Alert
+
+        /* Require home and away team selected */
+        if(!this.getTeam(homeTeamId) || !this.getTeam(awayTeamId)) {
+            console.log('Home and away team are required');
+            return;
+        }
+
+        /* Exit if home and away team are same */
+        if (homeTeamId === awayTeamId) {
+            console.log('Home and away team are same');
+            return;
+        }
+
+        /* Exit if game with same home and away teams already exist */
+        const notUnique = this.state.games.some(function (game) {
+            return (game.homeTeamId === homeTeamId) && (game.awayTeamId === awayTeamId);
+        });
+        if (notUnique) {
+            console.log('Same home and away teams already exist');
+            return;
+        }
+
+        const games = [...this.state.games];
+        games.push({
+            id: games.length + 1,
+            homeTeamId: homeTeamId,
+            awayTeamId: awayTeamId,
+            result: []
+        });
+        this.setState({games: games});
+        return true;
+    }
+
     render() {
         return (
             <div className="container">
                 <div className="row">
                     <div className="col-md-6">
-                        <MatchCenter games={this.getGames()}/>
+                        <MatchCenter games={this.getGames()} teams={this.state.teams} addGameHandler={this.addGameHandler}/>
                     </div>
                     <div className="col-sm-6">
                         <GameBoard/>

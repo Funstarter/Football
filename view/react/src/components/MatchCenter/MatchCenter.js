@@ -9,7 +9,7 @@ class MatchCenter extends Component {
             <Card title="Match Center">
                 <Games games={this.props.games} />
                 <div className="card-body">
-                    <AddGame/>
+                    <AddGame teams={this.props.teams} addGameHandler={this.props.addGameHandler}/>
                 </div>
             </Card>
         );
