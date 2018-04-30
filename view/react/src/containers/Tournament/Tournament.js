@@ -59,8 +59,7 @@ class Tournament extends Component {
                 awayTeam: 0
             }
         };
-        this.onSelectNewHomeTeam = this.onSelectNewHomeTeam.bind(this);
-        this.onSelectNewAwayTeam = this.onSelectNewAwayTeam.bind(this);
+        this.onSelectNewTeam = this.onSelectNewTeam.bind(this);
     }
 
     getGames() {
@@ -112,15 +111,9 @@ class Tournament extends Component {
         return true;
     }
 
-    onSelectNewHomeTeam(e) {
+    onSelectNewTeam(e, side) {
         const newGame = Object.assign({}, this.state.newGame);
-        newGame.homeTeam = Number(e.target.value);
-        this.setState({newGame: newGame});
-    }
-
-    onSelectNewAwayTeam(e) {
-        const newGame = Object.assign({}, this.state.newGame);
-        newGame.awayTeam = Number(e.target.value);
+        newGame[side] = Number(e.target.value);
         this.setState({newGame: newGame});
     }
 
@@ -131,8 +124,7 @@ class Tournament extends Component {
                     <div className="col-md-6">
                         <MatchCenter games={this.getGames()} teams={this.state.teams}
                                      onAddGame={() => this.onAddGame(this.state.newGame.homeTeam, this.state.newGame.awayTeam)}
-                                     onSelectNewHomeTeam={this.onSelectNewHomeTeam}
-                                     onSelectNewAwayTeam={this.onSelectNewAwayTeam}
+                                     onSelectNewTeam={this.onSelectNewTeam}
                         />
                     </div>
                     <div className="col-sm-6">

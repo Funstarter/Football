@@ -7,12 +7,11 @@ class MatchCenter extends Component {
     render() {
         return (
             <Card title="Match Center">
-                <Games games={this.props.games} />
+                <Games games={this.props.games}/>
                 <div className="card-body">
                     <AddGame teams={this.props.teams}
                              onAddGame={this.props.onAddGame}
-                             onSelectNewHomeTeam={this.props.onSelectNewHomeTeam}
-                             onSelectNewAwayTeam={this.props.onSelectNewAwayTeam}
+                             onSelectNewTeam={this.props.onSelectNewTeam}
                     />
                 </div>
             </Card>
