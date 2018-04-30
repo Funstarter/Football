@@ -53,9 +53,14 @@ class Tournament extends Component {
                         wins: 16
                     }
                 }
-            ]
+            ],
+            newGame: {
+                homeTeam: 0,
+                awayTeam: 0
+            }
         };
-        this.addGameHandler = this.addGameHandler.bind(this);
+        this.onSelectNewHomeTeam = this.onSelectNewHomeTeam.bind(this);
+        this.onSelectNewAwayTeam = this.onSelectNewAwayTeam.bind(this);
     }
 
     getGames() {
@@ -71,12 +76,12 @@ class Tournament extends Component {
         return this.state.teams.find(team => team.id === teamId);
     }
 
-    addGameHandler(homeTeamId, awayTeamId) {
+    onAddGame(homeTeamId, awayTeamId) {
 
         //TODO Add Error handling in modal Alert
 
         /* Require home and away team selected */
-        if(!this.getTeam(homeTeamId) || !this.getTeam(awayTeamId)) {
+        if (!this.getTeam(homeTeamId) || !this.getTeam(awayTeamId)) {
             console.log('Home and away team are required');
             return;
         }
@@ -107,12 +112,28 @@ class Tournament extends Component {
         return true;
     }
 
+    onSelectNewHomeTeam(e) {
+        const newGame = Object.assign({}, this.state.newGame);
+        newGame.homeTeam = Number(e.target.value);
+        this.setState({newGame: newGame});
+    }
+
+    onSelectNewAwayTeam(e) {
+        const newGame = Object.assign({}, this.state.newGame);
+        newGame.awayTeam = Number(e.target.value);
+        this.setState({newGame: newGame});
+    }
+
     render() {
         return (
             <div className="container">
                 <div className="row">
                     <div className="col-md-6">
-                        <MatchCenter games={this.getGames()} teams={this.state.teams} addGameHandler={this.addGameHandler}/>
+                        <MatchCenter games={this.getGames()} teams={this.state.teams}
+                                     onAddGame={() => this.onAddGame(this.state.newGame.homeTeam, this.state.newGame.awayTeam)}
+                                     onSelectNewHomeTeam={this.onSelectNewHomeTeam}
+                                     onSelectNewAwayTeam={this.onSelectNewAwayTeam}
+                        />
                     </div>
                     <div className="col-sm-6">
                         <GameBoard/>
